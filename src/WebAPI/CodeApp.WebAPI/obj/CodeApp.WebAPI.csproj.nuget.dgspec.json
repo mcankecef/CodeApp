@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CAN\\source\\repos\\CodeApp\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj": {}
+    "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CAN\\source\\repos\\CodeApp\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj": {
+    "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CAN\\source\\repos\\CodeApp\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
         "projectName": "CodeApp.WebAPI",
-        "projectPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
+        "projectPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
         "packagesPath": "C:\\Users\\CAN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\CodeApp.WebAPI\\obj\\",
+        "outputPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\CAN\\AppData\\Roaming\\NuGet\\NuGet.Config",

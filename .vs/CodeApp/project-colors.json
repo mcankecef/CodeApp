@@ -15,7 +15,27 @@
       "ProjectGuid": "baf56f75-3a8c-4e25-9301-52e724a0582d",
       "DisplayName": "CodeApp.Infrastructure",
       "ColorIndex": 2
+    },
+    "1429702a-8fd7-4c31-94e0-8a71bd960cd9": {
+      "ProjectGuid": "1429702a-8fd7-4c31-94e0-8a71bd960cd9",
+      "DisplayName": "CodeApp.Application",
+      "ColorIndex": 3
+    },
+    "bad1b862-aad1-452d-a765-c63da32b5aa2": {
+      "ProjectGuid": "bad1b862-aad1-452d-a765-c63da32b5aa2",
+      "DisplayName": "CodeApp.Domain",
+      "ColorIndex": 4
+    },
+    "4eb10ea9-59a0-4364-af33-0b876227bc7d": {
+      "ProjectGuid": "4eb10ea9-59a0-4364-af33-0b876227bc7d",
+      "DisplayName": "CodeApp.Persistance",
+      "ColorIndex": 5
+    },
+    "999fd7a8-fc60-420c-861b-01b66bd9c707": {
+      "ProjectGuid": "999fd7a8-fc60-420c-861b-01b66bd9c707",
+      "DisplayName": "CodeApp.WebAPI",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 7
 }
