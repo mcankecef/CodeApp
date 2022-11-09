@@ -44,6 +44,11 @@ namespace CodeApp.Persistance.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
+        public IQueryable<T> Queryable()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+
         public async Task RemoveAsync(T entity)
         {
             _context.Set<T>().Remove(entity);

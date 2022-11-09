@@ -18,6 +18,7 @@ namespace CodeApp.Persistance
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<ILanguageRepository, LanguageRepository>();
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
         }
     }
 }

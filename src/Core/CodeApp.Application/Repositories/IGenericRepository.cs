@@ -4,6 +4,7 @@ namespace CodeApp.Application.Repositories
 {
     public interface IGenericRepository<T> where T : class, new()
     {
+        IQueryable<T> Queryable();
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(Guid id);
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
