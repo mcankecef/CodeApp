@@ -74,3 +74,5 @@ C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Debug\net6.0\Cod
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Debug\net6.0\CodeApp.WebAPI.genruntimeconfig.cache
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\bin\Debug\net6.0\Humanizer.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\bin\Debug\net6.0\Npgsql.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
