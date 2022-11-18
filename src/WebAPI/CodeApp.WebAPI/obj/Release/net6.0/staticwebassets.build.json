@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "QSopPt6G7wve5Uy7VYKccH3spBsfiaqGWzYfwHddj1Y=",
+  "Source": "CodeApp.WebAPI",
+  "BasePath": "_content/CodeApp.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

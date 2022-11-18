@@ -23,6 +23,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
         {
             var questions = await _questionRepository.Queryable()
                 .Include(x=>x.Answers)
+                .Include(x=>x.Language)
                 .ToListAsync();
 
             var dto = _mapper.Map<List<GetAllQuestionDto>>(questions);

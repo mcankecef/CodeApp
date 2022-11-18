@@ -14,7 +14,7 @@ namespace CodeApp.Persistance
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            services.AddDbContext<CodeAppDbContext>(options => options.UseNpgsql(configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<CodeAppDbContext>(options => options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<ILanguageRepository, LanguageRepository>();
