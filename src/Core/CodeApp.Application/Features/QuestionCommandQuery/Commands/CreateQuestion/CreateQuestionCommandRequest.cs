@@ -1,4 +1,5 @@
-﻿using CodeApp.Application.Dtos.Question;
+﻿using CodeApp.Application.Dtos.Answer;
+using CodeApp.Application.Dtos.Question;
 using CodeApp.Application.Wrapper;
 using MediatR;
 
@@ -11,5 +12,6 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
         public int Score { get; set; }
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
+        public List<CreateAnswerDto>? Answer { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace CodeApp.Application.Repositories
         Task<T> GetByIdAsync(Guid id);
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
         Task CreateAsync(T entity);
+        Task CreateRange(IEnumerable<T> entities);
         Task UpdateAsync(T entity);
         Task RemoveAsync(T entity);
     }

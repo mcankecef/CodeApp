@@ -1,12 +1,7 @@
 ﻿using CodeApp.Application.Repositories;
 using CodeApp.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeApp.Persistance.Repositories
 {
@@ -23,6 +18,11 @@ namespace CodeApp.Persistance.Repositories
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
 
+        }
+        public async Task CreateRange(IEnumerable<T> entities)
+        {
+            await _context.AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<T>> GetAllAsync()
