@@ -1,4 +1,5 @@
 ﻿using CodeApp.Application.Features.AnswerCommandQuery.Commands.CreateAnswer;
+using CodeApp.Application.Features.AnswerCommandQuery.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,13 @@ namespace CodeApp.WebAPI.Controllers
         {
             _mediator = mediator;
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var response = await _mediator.Send(new GetAllAnswerQueryRequest());
 
+            return Ok(response);
+        }
         [HttpPost]
         public async Task<IActionResult> Create(CreateAnswerCommandRequest request)
         {
