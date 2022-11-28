@@ -10,12 +10,10 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Queries
     public class GetAllAnswerQueryHandler : IRequestHandler<GetAllAnswerQueryRequest, BaseResponse<GetAllAnswerDto>>
     {
         private readonly IAnswerRepository _answerRepository;
-        private readonly IMapper _mapper;
 
-        public GetAllAnswerQueryHandler(IAnswerRepository answerRepository, IMapper mapper)
+        public GetAllAnswerQueryHandler(IAnswerRepository answerRepository)
         {
             _answerRepository = answerRepository;
-            _mapper = mapper;
         }
 
         public async Task<BaseResponse<GetAllAnswerDto>> Handle(GetAllAnswerQueryRequest request, CancellationToken cancellationToken)

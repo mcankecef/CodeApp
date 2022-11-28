@@ -16,6 +16,7 @@ namespace CodeApp.Application.Mapping
             CreateMap<Answer, GetAllAnswerDto>().ReverseMap();
             CreateMap<GetAllAnswerDto, GetAllAnswerDto>().ReverseMap();
             CreateMap<Answer, GetAllAnswerQueryRequest>().ReverseMap();
+            CreateMap<Answer, AnswerDto>().ReverseMap();
         }
     }
 }
