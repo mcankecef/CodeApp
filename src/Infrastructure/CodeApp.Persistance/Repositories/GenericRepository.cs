@@ -55,6 +55,12 @@ namespace CodeApp.Persistance.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task RemoveRange(IEnumerable<T> entities)
+        {
+            _context.RemoveRange(entities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateAsync(T entity)
         {
             _context.Set<T>().Update(entity);

@@ -12,6 +12,6 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
         public int Score { get; set; }
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
-        public List<CreateAnswerDto>? Answer { get; set; }
+        //public List<CreateAnswerDto>? Answer { get; set; }
     }
 }
