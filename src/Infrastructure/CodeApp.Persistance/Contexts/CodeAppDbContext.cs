@@ -1,12 +1,14 @@
 ﻿using CodeApp.Domain.Entities;
+using CodeApp.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace CodeApp.Persistance.Contexts
 {
-    public class CodeAppDbContext : DbContext
+    public class CodeAppDbContext : IdentityDbContext<AppUser,AppRole,string>
     {
-        public CodeAppDbContext(DbContextOptions options) : base(options)
+        public CodeAppDbContext(DbContextOptions<CodeAppDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

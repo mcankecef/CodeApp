@@ -31,7 +31,7 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.DeleteAnswer
                 throw new ArgumentNullException($"{nameof(deletedAnswers)} is not found");
 
             await _answerRepository.RemoveRange(deletedAnswers);
-
+ 
             return new BaseResponse<NoContentDto>("Answer is succesfully deleted", true);
         }
     }
