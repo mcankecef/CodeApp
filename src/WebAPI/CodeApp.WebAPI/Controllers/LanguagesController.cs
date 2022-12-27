@@ -3,12 +3,14 @@ using CodeApp.Application.Features.LanguageCommandQuery.Commands.DeleteLanguage;
 using CodeApp.Application.Features.LanguageCommandQuery.Commands.UpdateLanguage;
 using CodeApp.Application.Features.LanguageCommandQuery.Queries.GetAllLanguage;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeApp.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes ="Admin")]
     public class LanguagesController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -2,12 +2,14 @@
 using CodeApp.Application.Features.AnswerCommandQuery.Commands.DeleteAnswer;
 using CodeApp.Application.Features.AnswerCommandQuery.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeApp.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
     public class AnswerController : ControllerBase
     {
         private readonly IMediator _mediator;

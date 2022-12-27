@@ -17,4 +17,8 @@
     <ProjectReference Include="..\CodeApp.Domain\CodeApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\UserCommandQuery\Queries\" />
+  </ItemGroup>
+
 </Project>
