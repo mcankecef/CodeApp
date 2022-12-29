@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuestion;
+using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,10 @@ namespace CodeApp.WebAPI.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("{questionLevel}")]
+        public async Task<IActionResult> GetAll(QuestionLevel questionLevel)
         {
-            return Ok(await _mediator.Send(new GetAllQuestionQueryRequest()));
+            return Ok(await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel)));
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateQuestionCommandRequest request)

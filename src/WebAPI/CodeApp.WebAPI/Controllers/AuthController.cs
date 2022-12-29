@@ -6,11 +6,11 @@ namespace CodeApp.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthControllers : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public AuthControllers(IMediator mediator)
+        public AuthController(IMediator mediator)
         {
             _mediator = mediator;
         }

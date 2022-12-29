@@ -22,13 +22,15 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
         public async Task<BaseResponse<List<GetAllQuestionDto>>> Handle(GetAllQuestionQueryRequest request, CancellationToken cancellationToken)
         {
             var questions = await _questionRepository.Queryable()
-                .Include(x=>x.Answers)
-                .Include(x=>x.Language)
+                .Include(q => q.Answers).Include(q => q.Language)
+                .OrderBy(q => Guid.NewGuid())
+                .Where(q => q.Level == request.Level)
+                .Take(10)
                 .ToListAsync();
 
             var dto = _mapper.Map<List<GetAllQuestionDto>>(questions);
 
-            return new BaseResponse<List<GetAllQuestionDto>>("",true,dto);
+            return new BaseResponse<List<GetAllQuestionDto>>("", true, dto);
         }
     }
 }
