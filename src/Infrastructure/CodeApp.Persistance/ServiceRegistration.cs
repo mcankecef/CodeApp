@@ -1,7 +1,9 @@
-﻿using CodeApp.Application.Repositories;
+﻿using CodeApp.Application.Abstractions;
+using CodeApp.Application.Repositories;
 using CodeApp.Domain.Entities.Identity;
 using CodeApp.Persistance.Contexts;
 using CodeApp.Persistance.Repositories;
+using CodeApp.Persistance.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,7 @@ namespace CodeApp.Persistance
             var assembly = Assembly.GetExecutingAssembly();
 
             services.AddDbContext<CodeAppDbContext>(options => options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"], options => options.EnableRetryOnFailure()));
+            
             services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Password.RequiredLength = 6;
@@ -31,6 +34,7 @@ namespace CodeApp.Persistance
             services.AddTransient<ILanguageRepository, LanguageRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }

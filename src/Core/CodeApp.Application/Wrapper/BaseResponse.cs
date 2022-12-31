@@ -2,12 +2,21 @@
 {
     public class BaseResponse<T>
     {
-        public BaseResponse(string message ,bool isSuccess)
+        public BaseResponse()
+        {
+
+        }
+        public BaseResponse(string message, bool isSuccess)
         {
             Message = message;
             IsSuccess = isSuccess;
         }
-        public BaseResponse(string message, bool isSuccess,T data)
+        public BaseResponse(T data, bool isSuccess)
+        {
+            Data = data;
+            IsSuccess = isSuccess;
+        }
+        public BaseResponse(string message, bool isSuccess, T data)
         {
             Message = message;
             IsSuccess = isSuccess;

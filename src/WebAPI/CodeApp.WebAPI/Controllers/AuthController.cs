@@ -1,4 +1,5 @@
-﻿using CodeApp.Application.Features.UserCommandQuery.Commands.LoginUser;
+﻿using CodeApp.Application.Features.AuthCommandQuery.LoginUser;
+using CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,14 @@ namespace CodeApp.WebAPI.Controllers
         public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
         {
             var result = await _mediator.Send(loginUserCommandRequest);
+
+            return Ok(result);
+        }
+
+        [HttpPost, Route("Register")]
+        public async Task<IActionResult> Register(CreateUserCommandRequest createUserCommandRequest)
+        {
+            var result = await _mediator.Send(createUserCommandRequest);
 
             return Ok(result);
         }

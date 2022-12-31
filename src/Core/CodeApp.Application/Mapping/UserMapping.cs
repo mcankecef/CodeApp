@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CodeApp.Application.Dtos.User;
-using CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser;
+using CodeApp.Application.Features.UserCommandQuery.Commands.AddScoreToUser;
 using CodeApp.Domain.Entities.Identity;
 
 namespace CodeApp.Application.Mapping
@@ -10,6 +10,9 @@ namespace CodeApp.Application.Mapping
         public UserMapping()
         {
             CreateMap<AppUser, CreateUserDto>().ReverseMap();
+            CreateMap<AppUser, GetAllUserDto>().ReverseMap();
+            CreateMap<UpdateScoreToUserCommandRequest, UserScoreDto>().ReverseMap();
+            CreateMap<AppUser, UserScoreDto>().ReverseMap();
         }
     }
 }

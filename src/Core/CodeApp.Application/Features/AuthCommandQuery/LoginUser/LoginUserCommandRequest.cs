@@ -2,7 +2,7 @@
 using CodeApp.Application.Wrapper;
 using MediatR;
 
-namespace CodeApp.Application.Features.UserCommandQuery.Commands.LoginUser
+namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
 {
     public class LoginUserCommandRequest : IRequest<BaseResponse<TokenDto>>
     {
