@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -13,6 +14,9 @@ namespace CodeApp.Application
             services.AddAutoMapper(assembly);
 
             services.AddMediatR(assembly);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         }
     }
 }

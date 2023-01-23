@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CodeApp.Application.Abstractions;
+using CodeApp.Application.Dtos;
 using CodeApp.Application.Dtos.User;
 using CodeApp.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -23,12 +24,12 @@ namespace CodeApp.Persistance.Services
             _mapper = mapper;
         }
 
-        public async Task<UserScoreDto> AddScoreToUser(UserScoreDto userScoreDto)
+        public async Task<UserScoreDto> UpdateUserScore(UserScoreDto userScoreDto)
         {
             var user = await _userManager.FindByIdAsync(userScoreDto.UserId);
 
             if (user == null)
-                throw new ArgumentNullException($"{userScoreDto.UserId} is not found!");
+                throw new ArgumentNullException($"User is not found!");
 
             user.Score += userScoreDto.Score;
 
@@ -53,11 +54,56 @@ namespace CodeApp.Persistance.Services
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user is null)
-                throw new ArgumentNullException($"{userId} is null!");
+                throw new ArgumentNullException($"User is not found");
 
             var score = user.Score;
 
             return score;
+        }
+
+        public async Task<GetUserByIdDto> GetUserById(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user is null)
+                throw new ArgumentNullException($"User is not found");
+
+            var response = _mapper.Map<GetUserByIdDto>(user);
+
+            return response;
+        }
+
+        public async Task<NoContentDto> UpdateUser(UpdateUserDto updateUserDto)
+        {
+
+            var user = await _userManager.FindByIdAsync(updateUserDto.UserId);
+
+            var email = await _userManager.FindByEmailAsync(updateUserDto.Email);
+
+            if (user is null)
+                throw new ArgumentNullException($"User is not found");
+
+            else if (email.Email != user.Email)
+                throw new ArgumentException("Email already exists");
+
+            user.Email = updateUserDto.Email;
+            user.FullName = updateUserDto.FullName;
+
+            await _userManager.UpdateAsync(user);
+
+            return new NoContentDto();
+        }
+
+        public async Task<NoContentDto> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user is null)
+                throw new ArgumentNullException($"User is not found");
+
+            await _userManager.DeleteAsync(user);
+
+            return new NoContentDto();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Token;
 using CodeApp.Infrastructure.Services.Token;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeApp.Infrastructure
@@ -9,6 +10,8 @@ namespace CodeApp.Infrastructure
         public static void AddInfrastructureRegistration(this IServiceCollection services)
         {
             services.AddScoped<ITokenHandler,TokenHandler>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         }
     }
 }
