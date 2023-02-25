@@ -1,6 +1,6 @@
 ﻿using CodeApp.Application.Features.AnswerCommandQuery.Commands.CreateAnswer;
 using CodeApp.Application.Features.AnswerCommandQuery.Commands.DeleteAnswer;
-using CodeApp.Application.Features.AnswerCommandQuery.Queries;
+using CodeApp.Application.Features.AnswerCommandQuery.Queries.GetAllAnswer;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

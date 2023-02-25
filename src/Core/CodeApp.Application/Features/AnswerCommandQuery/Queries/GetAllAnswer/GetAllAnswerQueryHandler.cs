@@ -5,7 +5,7 @@ using CodeApp.Application.Wrapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeApp.Application.Features.AnswerCommandQuery.Queries
+namespace CodeApp.Application.Features.AnswerCommandQuery.Queries.GetAllAnswer
 {
     public class GetAllAnswerQueryHandler : IRequestHandler<GetAllAnswerQueryRequest, BaseResponse<GetAllAnswerDto>>
     {
@@ -27,12 +27,12 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Queries
             var dto = new GetAllAnswerDto
             {
                 Answer = answers.Select(x => x.AnswerName).ToList(),
-                QuestionId = answers.Select(x=>x.QuestionId).FirstOrDefault(),
-                QuestionName = answers.Select(x=>x.Question.Name).FirstOrDefault(),
+                QuestionId = answers.Select(x => x.QuestionId).FirstOrDefault(),
+                QuestionName = answers.Select(x => x.Question.Name).FirstOrDefault(),
                 Id = answers.Select(x => x.Id).FirstOrDefault(),
             };
 
-            return new BaseResponse<GetAllAnswerDto>("", true,dto);
+            return new BaseResponse<GetAllAnswerDto>("", true, dto);
         }
     }
 }

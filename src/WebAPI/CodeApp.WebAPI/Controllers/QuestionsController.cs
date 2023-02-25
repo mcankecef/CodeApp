@@ -1,5 +1,7 @@
 ﻿using CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuestion;
+using CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuestion;
+using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetByIdQuestion;
 using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -30,5 +32,20 @@ namespace CodeApp.WebAPI.Controllers
 
             return StatusCode(201, response);
         }
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateQuestionCommandRequest request)
+        {
+            await _mediator.Send(request);
+
+            return NoContent();
+        }
+        [HttpGet,Route("GetQuestionById/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var question = await _mediator.Send(new GetQuestionByIdQueryRequest(id));
+
+            return Ok(question);
+        }
+
     }
 }

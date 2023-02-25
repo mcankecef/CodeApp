@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CodeApp.Application.Dtos.Answer;
-using CodeApp.Application.Features.AnswerCommandQuery.Queries;
+using CodeApp.Application.Features.AnswerCommandQuery.Queries.GetAllAnswer;
 using CodeApp.Domain.Entities;
 
 namespace CodeApp.Application.Mapping
