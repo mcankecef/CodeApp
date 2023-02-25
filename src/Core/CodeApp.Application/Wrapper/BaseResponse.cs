@@ -6,6 +6,10 @@
         {
 
         }
+        public BaseResponse(bool isSuccess)
+        {
+            IsSuccess = isSuccess;
+        }
         public BaseResponse(string message, bool isSuccess)
         {
             Message = message;
