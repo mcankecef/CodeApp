@@ -12,6 +12,6 @@ namespace CodeApp.Application.Dtos.Question
         public string Description { get; set; }
         public QuestionLevel Level { get; set; }
         public Guid LanguageId { get; set; }
-        public List<CreateAnswerDto> Answers { get; set; }
+        public List<string>? Answers { get; set; }
     }
 }

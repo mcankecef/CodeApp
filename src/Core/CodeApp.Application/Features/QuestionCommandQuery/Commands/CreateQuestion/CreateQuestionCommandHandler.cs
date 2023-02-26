@@ -4,11 +4,7 @@ using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using CodeApp.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuestion
 {
@@ -16,25 +12,57 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IAnswerRepository _answerRepository;
-        private readonly IMapper _mapper;
 
-        public CreateQuestionCommandHandler(IQuestionRepository questionRepository, IMapper mapper, IAnswerRepository answerRepository)
+        public CreateQuestionCommandHandler(IQuestionRepository questionRepository, IAnswerRepository answerRepository)
         {
             _questionRepository = questionRepository;
-            _mapper = mapper;
             _answerRepository = answerRepository;
         }
 
         public async Task<BaseResponse<CreateQuestionDto>> Handle(CreateQuestionCommandRequest request, CancellationToken cancellationToken)
         {
 
-            var createdQuestion = _mapper.Map<Question>(request);
+            var createdQuestion = new Question
+            {
+                Description = request.Description,
+                CorrectAnswer = request.CorrectAnswer,
+                LanguageId = request.LanguageId,
+                Level = request.Level,
+                Name = request.Name,
+                Score = request.Score,
+            };
 
-            await _questionRepository.CreateAsync(createdQuestion);            
+            await _questionRepository.CreateAsync(createdQuestion);
 
-            var response = _mapper.Map<CreateQuestionDto>(createdQuestion);
+            var question = await _questionRepository
+                .Queryable()
+                .Where(x => x.Id == createdQuestion.Id)
+                .AnyAsync();
 
-            return new BaseResponse<CreateQuestionDto>("Created question succesfully", true, response);
+            if (question is false)
+                throw new ArgumentNullException($"{nameof(question)} is not found!");
+
+            var answers = new List<Answer>();
+
+            foreach (var answer in request.Answers)
+            {
+                answers.Add(new Answer { QuestionId = createdQuestion.Id, AnswerName = answer });
+            }
+
+            await _answerRepository.CreateRange(answers);
+
+            var response = new CreateQuestionDto
+            {
+                Description = request.Description,
+                CorrectAnswer = request.CorrectAnswer,
+                LanguageId = request.LanguageId,
+                Level = request.Level,
+                Name = request.Name,
+                Score = request.Score,
+                Answers = answers.Select(a=>a.AnswerName).ToList(),
+            };
+
+            return new BaseResponse<CreateQuestionDto>("Created question and answer succesfully", true, response);
         }
     }
 }

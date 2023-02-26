@@ -14,6 +14,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
         public QuestionLevel Level { get; set; }
+        public List<string>? Answers { get; set; }
         //public List<CreateAnswerDto>? Answer { get; set; }
     }
 }

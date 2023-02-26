@@ -15,6 +15,7 @@ namespace CodeApp.Application.Mapping
             //Create
             CreateMap<Question,CreateQuestionDto>().ReverseMap();
             CreateMap<Question,CreateQuestionCommandRequest>().ReverseMap();
+            CreateMap<CreateQuestionDto,CreateQuestionCommandRequest>().ReverseMap();
 
             //GetById
             CreateMap<Question,GetQuestionByIdDto>().ReverseMap();
