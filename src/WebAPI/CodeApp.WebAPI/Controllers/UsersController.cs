@@ -22,7 +22,7 @@ namespace CodeApp.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllUser()
+        public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllUserQueryRequest());
 

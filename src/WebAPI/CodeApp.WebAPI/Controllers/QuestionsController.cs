@@ -23,7 +23,9 @@ namespace CodeApp.WebAPI.Controllers
         [HttpGet("{questionLevel}")]
         public async Task<IActionResult> GetAll(QuestionLevel questionLevel)
         {
-            return Ok(await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel)));
+            var questions = await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel));
+
+            return Ok(questions);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateQuestionCommandRequest request)
@@ -39,7 +41,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
-        [HttpGet,Route("GetQuestionById/{id}")]
+        [HttpGet, Route("GetQuestionById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var question = await _mediator.Send(new GetQuestionByIdQueryRequest(id));

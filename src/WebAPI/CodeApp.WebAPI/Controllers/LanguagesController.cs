@@ -20,7 +20,7 @@ namespace CodeApp.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllLanguage()
+        public async Task<IActionResult> GetAll()
         {
             return Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
         }
