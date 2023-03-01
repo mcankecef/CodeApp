@@ -4,6 +4,7 @@ using CodeApp.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeApp.Persistance.Migrations
 {
     [DbContext(typeof(CodeAppDbContext))]
-    partial class CodeAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230301212423_added-type-configuration-in-subject-entity")]
+    partial class addedtypeconfigurationinsubjectentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

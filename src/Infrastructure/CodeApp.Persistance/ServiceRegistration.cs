@@ -34,6 +34,8 @@ namespace CodeApp.Persistance
             services.AddTransient<ILanguageRepository, LanguageRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
+
             services.AddTransient<IUserService, UserService>();
         }
     }

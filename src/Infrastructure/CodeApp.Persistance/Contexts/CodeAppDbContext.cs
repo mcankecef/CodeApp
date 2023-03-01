@@ -19,5 +19,6 @@ namespace CodeApp.Persistance.Contexts
         public DbSet<Language> Languages { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
     }
 }
