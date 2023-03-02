@@ -9,6 +9,10 @@ C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\P
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\MediatR.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\MediatR.Contracts.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\MediatR.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -17,7 +21,10 @@ C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\P
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.Configuration.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.Identity.Core.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.Identity.Client.dll
+C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
 C:\Users\CAN\source\repos\CodeApp\src\WebAPI\CodeApp.WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.IdentityModel.Protocols.dll

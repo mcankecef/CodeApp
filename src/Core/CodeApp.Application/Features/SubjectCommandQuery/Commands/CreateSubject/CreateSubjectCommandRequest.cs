@@ -8,5 +8,6 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Commands.CreateSubjec
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public Guid LanguageId { get; set; }
     }
 }

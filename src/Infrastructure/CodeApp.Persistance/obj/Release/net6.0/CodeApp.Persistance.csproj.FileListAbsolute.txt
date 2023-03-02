@@ -1,7 +1,6 @@
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\CodeApp.Persistance.deps.json
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\CodeApp.Persistance.runtimeconfig.json
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\CodeApp.Persistance.dll
-C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\ref\CodeApp.Persistance.dll
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\CodeApp.Persistance.pdb
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\CodeApp.Application.dll
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Release\net6.0\CodeApp.Domain.dll
@@ -17,3 +16,4 @@ C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Rel
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Release\net6.0\ref\CodeApp.Persistance.dll
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Release\net6.0\CodeApp.Persistance.pdb
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Release\net6.0\CodeApp.Persistance.genruntimeconfig.cache
+C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Release\net6.0\refint\CodeApp.Persistance.dll

@@ -3,6 +3,7 @@ using CodeApp.Application.Dtos.Subject;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject
 {
@@ -19,7 +20,10 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject
 
         public async Task<BaseResponse<List<GetAllSubjectDto>>> Handle(GetAllSubjectQueryRequest request, CancellationToken cancellationToken)
         {
-            var subjects = await _subjectRepository.GetAllAsync();
+            var subjects = await _subjectRepository
+                .Queryable()
+                .Include(s=>s.Language)
+                .ToListAsync();
 
             var result = _mapper.Map<List<GetAllSubjectDto>>(subjects);
 

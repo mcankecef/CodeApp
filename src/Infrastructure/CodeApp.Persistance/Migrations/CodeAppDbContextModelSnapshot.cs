@@ -225,6 +225,9 @@ namespace CodeApp.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("LanguageId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -234,6 +237,8 @@ namespace CodeApp.Persistance.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("Subjects");
                 });
@@ -366,6 +371,17 @@ namespace CodeApp.Persistance.Migrations
                     b.Navigation("Language");
                 });
 
+            modelBuilder.Entity("CodeApp.Domain.Entities.Subject", b =>
+                {
+                    b.HasOne("CodeApp.Domain.Entities.Language", "Language")
+                        .WithMany("Subjects")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("CodeApp.Domain.Entities.Identity.AppRole", null)
@@ -420,6 +436,8 @@ namespace CodeApp.Persistance.Migrations
             modelBuilder.Entity("CodeApp.Domain.Entities.Language", b =>
                 {
                     b.Navigation("Questions");
+
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Question", b =>

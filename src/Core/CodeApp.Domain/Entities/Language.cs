@@ -5,12 +5,15 @@
         public Language()
         {
             Questions = new List<Question>();
+            Subjects = new List<Subject>();
         }
         public string Name { get; set; }
         public string Description { get; set; }
 
         // A language has more than one question
         public ICollection<Question> Questions { get; set; }
+        // A language has more than one question
+        public ICollection<Subject> Subjects { get; set; }
 
     }
 }

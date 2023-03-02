@@ -1,7 +1,6 @@
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\CodeApp.Persistance.deps.json
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\CodeApp.Persistance.runtimeconfig.json
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\CodeApp.Persistance.dll
-C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\ref\CodeApp.Persistance.dll
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\CodeApp.Persistance.pdb
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\CodeApp.Application.dll
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\bin\Debug\net6.0\CodeApp.Domain.dll
@@ -14,6 +13,7 @@ C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Deb
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\CodeApp.Persistance.csproj.CoreCompileInputs.cache
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\CodeApp.Persistance.csproj.CopyComplete
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\CodeApp.Persistance.dll
-C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\ref\CodeApp.Persistance.dll
+C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\refint\CodeApp.Persistance.dll
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\CodeApp.Persistance.pdb
 C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\CodeApp.Persistance.genruntimeconfig.cache
+C:\Users\CAN\source\repos\CodeApp\src\Infrastructure\CodeApp.Persistance\obj\Debug\net6.0\ref\CodeApp.Persistance.dll

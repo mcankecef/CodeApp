@@ -1,6 +1,5 @@
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\bin\Debug\net6.0\CodeApp.Domain.deps.json
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\bin\Debug\net6.0\CodeApp.Domain.dll
-C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\bin\Debug\net6.0\ref\CodeApp.Domain.dll
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\bin\Debug\net6.0\CodeApp.Domain.pdb
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeApp.Domain.csproj.AssemblyReference.cache
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
@@ -8,5 +7,6 @@ C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeA
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeApp.Domain.AssemblyInfo.cs
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeApp.Domain.csproj.CoreCompileInputs.cache
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeApp.Domain.dll
-C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\ref\CodeApp.Domain.dll
+C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\refint\CodeApp.Domain.dll
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\CodeApp.Domain.pdb
+C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Domain\obj\Debug\net6.0\ref\CodeApp.Domain.dll

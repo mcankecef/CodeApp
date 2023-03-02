@@ -1,6 +1,5 @@
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\bin\Debug\net6.0\CodeApp.Application.deps.json
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\bin\Debug\net6.0\CodeApp.Application.dll
-C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\bin\Debug\net6.0\ref\CodeApp.Application.dll
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\bin\Debug\net6.0\CodeApp.Application.pdb
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\bin\Debug\net6.0\CodeApp.Domain.dll
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\bin\Debug\net6.0\CodeApp.Domain.pdb
@@ -11,5 +10,6 @@ C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\CodeApp.Application.csproj.CoreCompileInputs.cache
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\CodeApp.Application.csproj.CopyComplete
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\CodeApp.Application.dll
-C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\ref\CodeApp.Application.dll
+C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\refint\CodeApp.Application.dll
 C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\CodeApp.Application.pdb
+C:\Users\CAN\source\repos\CodeApp\src\Core\CodeApp.Application\obj\Debug\net6.0\ref\CodeApp.Application.dll

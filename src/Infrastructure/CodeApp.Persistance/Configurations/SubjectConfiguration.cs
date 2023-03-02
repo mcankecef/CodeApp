@@ -10,6 +10,12 @@ namespace CodeApp.Persistance.Configurations
         {
             builder.Property(b => b.Title).IsRequired().HasMaxLength(100);
             builder.Property(b => b.Description).IsRequired();
+
+            // Language
+            builder.HasOne(b=>b.Language)
+                .WithMany(b=>b.Subjects)
+                .HasForeignKey(b=>b.LanguageId);
+                
         }
     }
 }

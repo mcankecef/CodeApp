@@ -3,6 +3,7 @@ using CodeApp.Application.Dtos.Subject;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetSubjectById
 {
@@ -19,17 +20,20 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetSubjectByI
 
         public async Task<BaseResponse<GetSubjectByIdDto>> Handle(GetSubjectByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            if(request.Id == Guid.Empty)
+            if (request.Id == Guid.Empty)
                 throw new ArgumentNullException(nameof(request.Id));
 
-            var subject = await _subjectRepository.GetByIdAsync(request.Id);
+            var subject = await _subjectRepository
+                .Queryable()
+                .Include(s => s.Language)
+                .FirstOrDefaultAsync(s => s.Id == request.Id);
 
             var response = _mapper.Map<GetSubjectByIdDto>(subject);
 
             if (response == null)
                 throw new ArgumentNullException(nameof(response));
 
-            return new BaseResponse<GetSubjectByIdDto>(response,true);
+            return new BaseResponse<GetSubjectByIdDto>(response, true);
         }
     }
 }
