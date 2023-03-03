@@ -30,11 +30,19 @@ namespace CodeApp.Persistance
                 //options.User.AllowedUserNameCharacters 
             }).AddEntityFrameworkStores<CodeAppDbContext>();
 
-            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<ILanguageRepository, LanguageRepository>();
-            services.AddTransient<IQuestionRepository, QuestionRepository>();
-            services.AddTransient<IAnswerRepository, AnswerRepository>();
-            services.AddTransient<ISubjectRepository, SubjectRepository>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddTransient<ILanguageReadRepository, LanguageReadRepository>();
+            services.AddTransient<ILanguageWriteRepository, LanguageWriteRepository>();
+
+            services.AddTransient<IQuestionReadRepository, QuestionReadRepository>();
+            services.AddTransient<IQuestionWriteRepository, QuestionWriteRepository>();
+
+            services.AddTransient<IAnswerReadRepository, AnswerReadRepository>();
+            services.AddTransient<IAnswerWriteRepository, AnswerWriteRepository>();
+
+            services.AddTransient<ISubjectReadRepository, SubjectReadRepository>();
+            services.AddTransient<ISubjectWriteRepository, SubjectWriteRepository>();
 
             services.AddTransient<IUserService, UserService>();
         }

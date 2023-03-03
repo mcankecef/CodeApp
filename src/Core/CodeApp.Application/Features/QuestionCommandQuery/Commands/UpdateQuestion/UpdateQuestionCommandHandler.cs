@@ -14,18 +14,18 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuest
 {
     public class UpdateQuestionCommandHandler : IRequestHandler<UpdateQuestionCommandRequest, BaseResponse<NoContentDto>>
     {
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IMapper _mapper;
+        private readonly IQuestionReadRepository _questionReadRepository;
+        private readonly IQuestionWriteRepository _questionWriteRepository;
 
-        public UpdateQuestionCommandHandler(IQuestionRepository questionRepository, IMapper mapper)
+        public UpdateQuestionCommandHandler(IQuestionReadRepository questionReadRepository, IQuestionWriteRepository questionWriteRepository)
         {
-            _questionRepository = questionRepository;
-            _mapper = mapper;
+            _questionReadRepository = questionReadRepository;
+            _questionWriteRepository = questionWriteRepository;
         }
 
         public async Task<BaseResponse<NoContentDto>> Handle(UpdateQuestionCommandRequest request, CancellationToken cancellationToken)
         {
-            var question = await _questionRepository.GetByIdAsync(request.Id);
+            var question = await _questionReadRepository.GetByIdAsync(request.Id);
 
             if (question == null)
                 throw new ArgumentNullException(nameof(question));
@@ -37,7 +37,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuest
             question.CorrectAnswer = request.CorrectAnswer;
             question.Score = request.Score;
 
-            await _questionRepository.UpdateAsync(question);
+            _questionWriteRepository.Update(question);
 
             return new BaseResponse<NoContentDto>(true);
         }

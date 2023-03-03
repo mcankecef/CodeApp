@@ -4,9 +4,9 @@ using CodeApp.Persistance.Contexts;
 
 namespace CodeApp.Persistance.Repositories
 {
-    public class SubjectRepository : GenericRepository<Subject>, ISubjectRepository
+    public class QuestionReadRepository : ReadRepository<Question>, IQuestionReadRepository
     {
-        public SubjectRepository(CodeAppDbContext context) : base(context)
+        public QuestionReadRepository(CodeAppDbContext context) : base(context)
         {
         }
     }

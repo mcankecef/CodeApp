@@ -10,18 +10,18 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetQuestionB
 {
     public class GetQuestionByIdQueryHandler : IRequestHandler<GetQuestionByIdQueryRequest, BaseResponse<GetQuestionByIdDto>>
     {
-        private readonly IQuestionRepository _questionRepository;
+        private readonly IQuestionReadRepository _questionReadRepository;
         private readonly IMapper _mapper;
 
-        public GetQuestionByIdQueryHandler(IQuestionRepository questionRepository, IMapper mapper)
+        public GetQuestionByIdQueryHandler(IQuestionReadRepository questionReadRepository, IMapper mapper)
         {
-            _questionRepository = questionRepository;
+            _questionReadRepository = questionReadRepository;
             _mapper = mapper;
         }
 
         public async Task<BaseResponse<GetQuestionByIdDto>> Handle(GetQuestionByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var question = await _questionRepository
+            var question = await _questionReadRepository
                 .Queryable()
                 .Include(q => q.Language)
                 .Include(q => q.Answers)

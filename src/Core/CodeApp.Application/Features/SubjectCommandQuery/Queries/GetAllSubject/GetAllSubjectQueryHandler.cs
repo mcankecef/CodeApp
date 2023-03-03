@@ -9,18 +9,18 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject
 {
     public class GetAllSubjectQueryHandler : IRequestHandler<GetAllSubjectQueryRequest, BaseResponse<List<GetAllSubjectDto>>>
     {
-        private readonly ISubjectRepository _subjectRepository;
+        private readonly ISubjectReadRepository _subjectReadRepository;
         private readonly IMapper _mapper;
 
-        public GetAllSubjectQueryHandler(ISubjectRepository subjectRepository, IMapper mapper)
+        public GetAllSubjectQueryHandler(ISubjectReadRepository subjectReadRepository, IMapper mapper)
         {
-            _subjectRepository = subjectRepository;
+            _subjectReadRepository = subjectReadRepository;
             _mapper = mapper;
         }
 
         public async Task<BaseResponse<List<GetAllSubjectDto>>> Handle(GetAllSubjectQueryRequest request, CancellationToken cancellationToken)
         {
-            var subjects = await _subjectRepository
+            var subjects = await _subjectReadRepository
                 .Queryable()
                 .Include(s=>s.Language)
                 .ToListAsync();

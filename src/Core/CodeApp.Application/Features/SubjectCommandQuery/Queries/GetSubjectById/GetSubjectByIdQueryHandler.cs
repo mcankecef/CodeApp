@@ -9,12 +9,12 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetSubjectByI
 {
     public class GetSubjectByIdQueryHandler : IRequestHandler<GetSubjectByIdQueryRequest, BaseResponse<GetSubjectByIdDto>>
     {
-        private readonly ISubjectRepository _subjectRepository;
+        private readonly ISubjectReadRepository _subjectReadRepository;
         private readonly IMapper _mapper;
 
-        public GetSubjectByIdQueryHandler(ISubjectRepository subjectRepository, IMapper mapper)
+        public GetSubjectByIdQueryHandler(ISubjectReadRepository subjectReadRepository, IMapper mapper)
         {
-            _subjectRepository = subjectRepository;
+            _subjectReadRepository = subjectReadRepository;
             _mapper = mapper;
         }
 
@@ -23,7 +23,7 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetSubjectByI
             if (request.Id == Guid.Empty)
                 throw new ArgumentNullException(nameof(request.Id));
 
-            var subject = await _subjectRepository
+            var subject = await _subjectReadRepository
                 .Queryable()
                 .Include(s => s.Language)
                 .FirstOrDefaultAsync(s => s.Id == request.Id);

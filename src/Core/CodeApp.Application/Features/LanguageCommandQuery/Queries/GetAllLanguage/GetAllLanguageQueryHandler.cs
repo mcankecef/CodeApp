@@ -8,17 +8,18 @@ namespace CodeApp.Application.Features.LanguageCommandQuery.Queries.GetAllLangua
 {
     public class GetAllLanguageQueryHandler : IRequestHandler<GetAllLanguageQueryRequest, BaseResponse<List<GetAllLanguageDto>>>
     {
-        private readonly ILanguageRepository _languageRepository;
+        private readonly ILanguageReadRepository _languageReadRepository;
         private readonly IMapper _mapper;
-        public GetAllLanguageQueryHandler(ILanguageRepository languageRepository, IMapper mapper)
+
+        public GetAllLanguageQueryHandler(ILanguageReadRepository languageReadRepository, IMapper mapper)
         {
-            _languageRepository = languageRepository;
+            _languageReadRepository = languageReadRepository;
             _mapper = mapper;
         }
 
         public async Task<BaseResponse<List<GetAllLanguageDto>>> Handle(GetAllLanguageQueryRequest request, CancellationToken cancellationToken)
         {
-            var languages = await _languageRepository.GetAllAsync();
+            var languages = await _languageReadRepository.GetAllAsync();
             
             var dto = _mapper.Map<List<GetAllLanguageDto>>(languages);
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CodeApp.Application.Dtos.Answer;
+﻿using CodeApp.Application.Dtos.Answer;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using MediatR;
@@ -9,17 +8,16 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Queries.GetAllAnswer
 {
     public class GetAllAnswerQueryHandler : IRequestHandler<GetAllAnswerQueryRequest, BaseResponse<GetAllAnswerDto>>
     {
-        private readonly IAnswerRepository _answerRepository;
+        private readonly IAnswerReadRepository _answerReadRepository;
 
-        public GetAllAnswerQueryHandler(IAnswerRepository answerRepository)
+        public GetAllAnswerQueryHandler(IAnswerReadRepository answerReadRepository)
         {
-            _answerRepository = answerRepository;
+            _answerReadRepository = answerReadRepository;
         }
 
         public async Task<BaseResponse<GetAllAnswerDto>> Handle(GetAllAnswerQueryRequest request, CancellationToken cancellationToken)
         {
-
-            var answers = await _answerRepository
+            var answers = await _answerReadRepository
                 .Queryable()
                 .Include(x => x.Question)
                 .ToListAsync();

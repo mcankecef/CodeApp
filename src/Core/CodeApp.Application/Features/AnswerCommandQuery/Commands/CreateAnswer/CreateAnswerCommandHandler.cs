@@ -10,20 +10,18 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.CreateAnswer
 {
     public class CreateAnswerCommandHandler : IRequestHandler<CreateAnswerCommandRequest, BaseResponse<CreateAnswerDto>>
     {
-        private readonly IAnswerRepository _answerRepository;
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IMapper _mapper;
+        private readonly IAnswerWriteRepository _answerWriteRepository;
+        private readonly IQuestionReadRepository _questionReadRepository;
 
-        public CreateAnswerCommandHandler(IAnswerRepository answerRepository, IMapper mapper, IQuestionRepository questionRepository)
+        public CreateAnswerCommandHandler(IAnswerWriteRepository answerWriteRepository, IQuestionReadRepository questionReadRepository)
         {
-            _answerRepository = answerRepository;
-            _mapper = mapper;
-            _questionRepository = questionRepository;
+            _answerWriteRepository = answerWriteRepository;
+            _questionReadRepository = questionReadRepository;
         }
 
         public async Task<BaseResponse<CreateAnswerDto>> Handle(CreateAnswerCommandRequest request, CancellationToken cancellationToken)
         {
-            var question = await _questionRepository
+            var question = await _questionReadRepository
                 .Queryable()
                 .Where(x => x.Id == request.QuestionId)
                 .AnyAsync();
@@ -38,7 +36,7 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.CreateAnswer
                 answers.Add(new Answer { QuestionId = request.QuestionId, AnswerName = ans });
             }
 
-            await _answerRepository.CreateRange(answers);
+            await _answerWriteRepository.CreateRangeAsync(answers);
 
             var dto = new CreateAnswerDto
             {

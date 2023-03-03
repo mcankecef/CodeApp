@@ -10,21 +10,22 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
 {
     public class GetAllQuestionQueryHandler : IRequestHandler<GetAllQuestionQueryRequest, BaseResponse<List<GetAllQuestionDto>>>
     {
-        private readonly IQuestionRepository _questionRepository;
+        private readonly IQuestionReadRepository _questionReadRepository;
         private readonly IMapper _mapper;
 
-        public GetAllQuestionQueryHandler(IQuestionRepository questionRepository, IMapper mapper)
+        public GetAllQuestionQueryHandler(IQuestionReadRepository questionReadRepository, IMapper mapper)
         {
-            _questionRepository = questionRepository;
+            _questionReadRepository = questionReadRepository;
             _mapper = mapper;
         }
 
         public async Task<BaseResponse<List<GetAllQuestionDto>>> Handle(GetAllQuestionQueryRequest request, CancellationToken cancellationToken)
         {
-            var questions = await _questionRepository.Queryable()
+            var questions = await _questionReadRepository.Queryable()
                 .Include(q => q.Answers).Include(q => q.Language)
+                .Where(q=>q.LanguageId == request.LanguageId)
+                .Where(q => (int)q.Level == request.QuestionLevel)
                 .OrderBy(q => Guid.NewGuid())
-                .Where(q => q.Level == request.Level)
                 .Take(10)
                 .ToListAsync();
 

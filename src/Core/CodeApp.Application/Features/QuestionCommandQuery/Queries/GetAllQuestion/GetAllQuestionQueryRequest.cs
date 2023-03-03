@@ -7,10 +7,12 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
 {
     public class GetAllQuestionQueryRequest : IRequest<BaseResponse<List<GetAllQuestionDto>>>
     {
-        public QuestionLevel Level { get; set; }
-        public GetAllQuestionQueryRequest(QuestionLevel level)
+        public int QuestionLevel { get; set; }
+        public Guid LanguageId { get; set; }
+        public GetAllQuestionQueryRequest(int questionLevel, Guid languageId)
         {
-            Level = level;
+            QuestionLevel = questionLevel;
+            LanguageId = languageId;
         }
     }
 }

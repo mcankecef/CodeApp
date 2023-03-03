@@ -5,10 +5,10 @@ using System.Linq.Expressions;
 
 namespace CodeApp.Persistance.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, new()
+    public class Repository<T> : IRepository<T> where T : class, new()
     {
         private readonly CodeAppDbContext _context;
-        public GenericRepository(CodeAppDbContext context)
+        public Repository(CodeAppDbContext context)
         {
             _context = context;
         }

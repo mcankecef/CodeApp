@@ -9,19 +9,19 @@ namespace CodeApp.Application.Features.LanguageCommandQuery.Commands.CreateLangu
 {
     public class CreateLanguageCommandHandler : IRequestHandler<CreateLanguageCommandRequest, BaseResponse<CreateLanguageDto>>
     {
-        private readonly ILanguageRepository _repository;
+        private readonly ILanguageWriteRepository _languageWriteRepository;
         private readonly IMapper _mapper;
 
-        public CreateLanguageCommandHandler(ILanguageRepository repository, IMapper mapper)
+        public CreateLanguageCommandHandler(ILanguageWriteRepository languageWriteRepository, IMapper mapper)
         {
-            _repository = repository;
+            _languageWriteRepository = languageWriteRepository;
             _mapper = mapper;
         }
         public async Task<BaseResponse<CreateLanguageDto>> Handle(CreateLanguageCommandRequest request, CancellationToken cancellationToken)
         {
             var createdLanguage = _mapper.Map<Language>(request);
 
-            await _repository.CreateAsync(createdLanguage);
+            await _languageWriteRepository.CreateAsync(createdLanguage);
 
             var dto = _mapper.Map<CreateLanguageDto>(createdLanguage);
 

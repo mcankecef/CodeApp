@@ -9,12 +9,12 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Commands.CreateSubjec
 {
     public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommandRequest, BaseResponse<CreateSubjectDto>>
     {
-        private readonly ISubjectRepository _subjectRepository;
+        private readonly ISubjectWriteRepository _subjectWriteRepository;
         private readonly IMapper _mapper;
 
-        public CreateSubjectCommandHandler(ISubjectRepository subjectRepository, IMapper mapper)
+        public CreateSubjectCommandHandler(ISubjectWriteRepository subjectWriteRepository, IMapper mapper)
         {
-            _subjectRepository = subjectRepository;
+            _subjectWriteRepository = subjectWriteRepository;
             _mapper = mapper;
         }
 
@@ -22,7 +22,7 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Commands.CreateSubjec
         {
             var subject = _mapper.Map<Subject>(request);
 
-            await _subjectRepository.CreateAsync(subject);
+            await _subjectWriteRepository.CreateAsync(subject);
 
             var result = _mapper.Map<CreateSubjectDto>(subject);
 

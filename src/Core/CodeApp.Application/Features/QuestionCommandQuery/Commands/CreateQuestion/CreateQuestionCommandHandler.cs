@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CodeApp.Application.Dtos.Question;
+﻿using CodeApp.Application.Dtos.Question;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using CodeApp.Domain.Entities;
@@ -10,13 +9,15 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
 {
     public class CreateQuestionCommandHandler : IRequestHandler<CreateQuestionCommandRequest, BaseResponse<CreateQuestionDto>>
     {
-        private readonly IQuestionRepository _questionRepository;
-        private readonly IAnswerRepository _answerRepository;
+        private readonly IQuestionWriteRepository _questionWriteRepository;
+        private readonly IQuestionReadRepository _questionReadRepository;
+        private readonly IAnswerWriteRepository _answerWriteRepository;
 
-        public CreateQuestionCommandHandler(IQuestionRepository questionRepository, IAnswerRepository answerRepository)
+        public CreateQuestionCommandHandler(IQuestionWriteRepository questionWriteRepository, IQuestionReadRepository questionReadRepository, IAnswerWriteRepository answerWriteRepository)
         {
-            _questionRepository = questionRepository;
-            _answerRepository = answerRepository;
+            _questionWriteRepository = questionWriteRepository;
+            _questionReadRepository = questionReadRepository;
+            _answerWriteRepository = answerWriteRepository;
         }
 
         public async Task<BaseResponse<CreateQuestionDto>> Handle(CreateQuestionCommandRequest request, CancellationToken cancellationToken)
@@ -32,9 +33,9 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
                 Score = request.Score,
             };
 
-            await _questionRepository.CreateAsync(createdQuestion);
+            await _questionWriteRepository.CreateAsync(createdQuestion);
 
-            var question = await _questionRepository
+            var question = await _questionReadRepository
                 .Queryable()
                 .Where(x => x.Id == createdQuestion.Id)
                 .AnyAsync();
@@ -49,7 +50,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
                 answers.Add(new Answer { QuestionId = createdQuestion.Id, AnswerName = answer });
             }
 
-            await _answerRepository.CreateRange(answers);
+            await _answerWriteRepository.CreateRangeAsync(answers);
 
             var response = new CreateQuestionDto
             {
@@ -59,7 +60,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
                 Level = request.Level,
                 Name = request.Name,
                 Score = request.Score,
-                Answers = answers.Select(a=>a.AnswerName).ToList(),
+                Answers = answers.Select(a => a.AnswerName).ToList(),
             };
 
             return new BaseResponse<CreateQuestionDto>("Created question and answer succesfully", true, response);

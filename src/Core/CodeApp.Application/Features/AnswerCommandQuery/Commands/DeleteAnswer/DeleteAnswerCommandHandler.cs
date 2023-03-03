@@ -3,26 +3,23 @@ using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.DeleteAnswer
 {
     public class DeleteAnswerCommandHandler : IRequestHandler<DeleteAnswerCommandRequest, BaseResponse<NoContentDto>>
     {
-        private readonly IAnswerRepository _answerRepository;
+        private readonly IAnswerWriteRepository _answerWriteRepository;
+        private readonly IAnswerReadRepository _answerReadRepository;
 
-        public DeleteAnswerCommandHandler(IAnswerRepository answerRepository)
+        public DeleteAnswerCommandHandler(IAnswerWriteRepository answerWriteRepository, IAnswerReadRepository answerReadRepository)
         {
-            _answerRepository = answerRepository;
+            _answerWriteRepository = answerWriteRepository;
+            _answerReadRepository = answerReadRepository;
         }
 
         public async Task<BaseResponse<NoContentDto>> Handle(DeleteAnswerCommandRequest request, CancellationToken cancellationToken)
         {
-            var deletedAnswers = await _answerRepository
+            var deletedAnswers = await _answerReadRepository
                 .Queryable()
                 .Where(x => x.QuestionId == request.QuestionId)
                 .ToListAsync();
@@ -30,8 +27,8 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.DeleteAnswer
             if (deletedAnswers is null)
                 throw new ArgumentNullException($"{nameof(deletedAnswers)} is not found");
 
-            await _answerRepository.RemoveRange(deletedAnswers);
- 
+            _answerWriteRepository.RemoveRange(deletedAnswers);
+
             return new BaseResponse<NoContentDto>("Answer is succesfully deleted", true);
         }
     }

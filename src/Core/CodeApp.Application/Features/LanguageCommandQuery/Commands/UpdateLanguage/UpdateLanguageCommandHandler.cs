@@ -10,20 +10,20 @@ namespace CodeApp.Application.Features.LanguageCommandQuery.Commands.UpdateLangu
 {
     public class UpdateLanguageCommandHandler : IRequestHandler<UpdateLanguageCommandRequest, BaseResponse<NoContentDto>>
     {
-        private readonly ILanguageRepository _languageRepository;
+        private readonly ILanguageWriteRepository _languageWriteRepository;
         private readonly IMapper _mapper;
 
-        public UpdateLanguageCommandHandler(ILanguageRepository languageRepository, IMapper mapper)
+        public UpdateLanguageCommandHandler(ILanguageWriteRepository languageWriteRepository, IMapper mapper)
         {
-            _languageRepository = languageRepository;
+            _languageWriteRepository = languageWriteRepository;
             _mapper = mapper;
         }
 
         public async Task<BaseResponse<NoContentDto>> Handle(UpdateLanguageCommandRequest request, CancellationToken cancellationToken)
         {
-            var language = _mapper.Map<Language>(request);           
+            var language = _mapper.Map<Language>(request);
 
-            await _languageRepository.UpdateAsync(language);
+            _languageWriteRepository.Update(language);
 
             return new BaseResponse<NoContentDto>("Updated language succesfully", true);
 
