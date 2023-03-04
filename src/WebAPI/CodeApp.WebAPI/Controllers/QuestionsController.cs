@@ -22,9 +22,9 @@ namespace CodeApp.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll(GetAllQuestionRequestModel requestModel)
+        public async Task<IActionResult> GetAll([FromQuery] int questionLevel,Guid languageId)
         {
-            var questions = await _mediator.Send(new GetAllQuestionQueryRequest(requestModel.QuestionLevel,requestModel.LanguageId));
+            var questions = await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel,languageId));
 
             return Ok(questions);
         }
