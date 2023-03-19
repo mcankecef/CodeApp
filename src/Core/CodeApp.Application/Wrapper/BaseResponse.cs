@@ -6,6 +6,10 @@
         {
 
         }
+        public BaseResponse(T data)
+        {
+            Data = data;
+        }
         public BaseResponse(bool isSuccess)
         {
             IsSuccess = isSuccess;

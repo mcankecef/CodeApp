@@ -11,5 +11,7 @@ namespace CodeApp.Application.Abstractions
         Task<GetUserByIdDto> GetUserById(string userId);
         Task<NoContentDto> UpdateUser(UpdateUserDto updateUserDto);
         Task<NoContentDto> DeleteUser(string userId);
+        Task<string> UpdateUserAvatar(UpdateUserAvatarDto updateUserAvatarDto);
+
     }
 }

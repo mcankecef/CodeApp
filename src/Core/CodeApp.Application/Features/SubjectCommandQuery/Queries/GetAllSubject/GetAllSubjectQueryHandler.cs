@@ -23,6 +23,7 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject
             var subjects = await _subjectReadRepository
                 .Queryable()
                 .Include(s=>s.Language)
+                .Where(s=>s.LanguageId == request.LanguageId)
                 .ToListAsync();
 
             var result = _mapper.Map<List<GetAllSubjectDto>>(subjects);

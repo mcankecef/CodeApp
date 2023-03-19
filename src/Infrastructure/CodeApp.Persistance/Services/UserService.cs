@@ -5,11 +5,6 @@ using CodeApp.Application.Dtos.User;
 using CodeApp.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeApp.Persistance.Services
 {
@@ -104,6 +99,24 @@ namespace CodeApp.Persistance.Services
             await _userManager.DeleteAsync(user);
 
             return new NoContentDto();
+        }
+
+        public async Task<string> UpdateUserAvatar(UpdateUserAvatarDto updateUserAvatarDto)
+        {
+            var user = await _userManager.Users
+                .Include(u=>u.Avatar)
+                .FirstOrDefaultAsync(u=>u.Id == updateUserAvatarDto.UserId);
+
+            if (user is null)
+                throw new ArgumentNullException($"User is not found");
+
+            user.AvatarId = updateUserAvatarDto.AvatarId;
+
+            await _userManager.UpdateAsync(user);
+
+            var imageUrl = user.Avatar.ImageUrl;
+
+            return imageUrl;
         }
     }
 }

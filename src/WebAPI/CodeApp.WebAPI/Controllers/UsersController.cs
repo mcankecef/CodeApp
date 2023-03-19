@@ -1,6 +1,7 @@
 ﻿using CodeApp.Application.Features.UserCommandQuery.Commands.DeleteUser;
 using CodeApp.Application.Features.UserCommandQuery.Commands.UpdateScore;
 using CodeApp.Application.Features.UserCommandQuery.Commands.UpdateUser;
+using CodeApp.Application.Features.UserCommandQuery.Commands.UpdateUserAvatar;
 using CodeApp.Application.Features.UserCommandQuery.Queries.GetAllUser;
 using CodeApp.Application.Features.UserCommandQuery.Queries.GetByUserId;
 using CodeApp.Application.Features.UserCommandQuery.Queries.GetUserScore;
@@ -29,9 +30,9 @@ namespace CodeApp.WebAPI.Controllers
             return Ok(result);
         }
         [HttpPut, Route("UpdateScore")]
-        public async Task<IActionResult> UpdateScore(UpdateScoreCommandRequest updateScoreToUserCommandRequest)
+        public async Task<IActionResult> UpdateScore(UpdateScoreCommandRequest request)
         {
-            await _mediator.Send(updateScoreToUserCommandRequest);
+            await _mediator.Send(request);
 
             return NoContent();
         }
@@ -50,19 +51,25 @@ namespace CodeApp.WebAPI.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateUserCommandRequest updateUserCommandRequest)
+        public async Task<IActionResult> Update(UpdateUserCommandRequest request)
         {
-            await _mediator.Send(updateUserCommandRequest);
+            await _mediator.Send(request);
 
             return NoContent();
         }
         [HttpDelete("{userId}")]
         public async Task<IActionResult> Delete(string userId)
         {
-            var d = 2 / 6;
             await _mediator.Send(new DeleteUserCommandRequest(userId));
 
-            return Ok(d);
+            return NoContent();
+        }
+        [HttpPut,Route("updateUserAvatar")]
+        public async Task<IActionResult> UpdateAvatar(UpdateUserAvatarCommandRequest request)
+        {
+            var avatarImageUrl =await _mediator.Send(request);
+
+            return Ok(avatarImageUrl);
         }
     }
 }

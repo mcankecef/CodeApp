@@ -20,5 +20,6 @@ namespace CodeApp.Persistance.Contexts
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
     }
 }

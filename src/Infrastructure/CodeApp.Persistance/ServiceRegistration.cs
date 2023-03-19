@@ -44,6 +44,9 @@ namespace CodeApp.Persistance
             services.AddTransient<ISubjectReadRepository, SubjectReadRepository>();
             services.AddTransient<ISubjectWriteRepository, SubjectWriteRepository>();
 
+            services.AddTransient<IAvatarReadRepository, AvatarReadRepository>();
+            services.AddTransient<IAvatarWriteRepository, AvatarWriteRepository>();
+
             services.AddTransient<IUserService, UserService>();
         }
     }

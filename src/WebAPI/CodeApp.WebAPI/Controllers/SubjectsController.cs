@@ -21,9 +21,9 @@ namespace CodeApp.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] Guid languageId)
         {
-            var subjects = await _mediator.Send(new GetAllSubjectQueryRequest());
+            var subjects = await _mediator.Send(new GetAllSubjectQueryRequest(languageId));
 
             return Ok(subjects);
         }
