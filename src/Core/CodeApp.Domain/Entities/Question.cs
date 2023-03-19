@@ -20,5 +20,6 @@ namespace CodeApp.Domain.Entities
 
         // A question has more than one answer
         public ICollection<Answer> Answers { get; set; }
+        public StatusType Status { get; set; }
     }
 }

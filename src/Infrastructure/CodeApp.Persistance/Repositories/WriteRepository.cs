@@ -46,5 +46,12 @@ namespace CodeApp.Persistance.Repositories
             return true;
         }
         public async Task<int> SaveAsync() => await _context.SaveChangesAsync();
+
+        public bool UpdateRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().UpdateRange(entities);
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

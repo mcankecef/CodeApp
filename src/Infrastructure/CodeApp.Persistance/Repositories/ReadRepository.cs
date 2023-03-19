@@ -1,4 +1,5 @@
 ﻿using CodeApp.Application.Repositories;
+using CodeApp.Domain.Enums;
 using CodeApp.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -17,6 +18,10 @@ namespace CodeApp.Persistance.Repositories
         public async Task<List<T>> GetAllAsync() => await _context.Set<T>()
                 .AsNoTracking()
                 .ToListAsync();
+
+        public async Task<List<T>> GetAllByStatusAsync(StatusType statusType) => await _context.Set<T>()
+            .AsNoTracking()
+            .ToListAsync();
 
         public async Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter) => await _context.Set<T>()
                                  .AsNoTracking()

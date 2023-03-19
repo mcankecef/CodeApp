@@ -1,4 +1,6 @@
-﻿namespace CodeApp.Domain.Entities
+﻿using CodeApp.Domain.Enums;
+
+namespace CodeApp.Domain.Entities
 {
     public class BaseEntity
     {

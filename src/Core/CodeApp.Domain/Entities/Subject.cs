@@ -1,4 +1,6 @@
-﻿namespace CodeApp.Domain.Entities
+﻿using CodeApp.Domain.Enums;
+
+namespace CodeApp.Domain.Entities
 {
     public class Subject : BaseEntity
     {
@@ -8,5 +10,7 @@
 
         // A question must has one language
         public Language Language { get; set; }
+        public StatusType Status { get; set; }
+
     }
 }

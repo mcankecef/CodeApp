@@ -1,4 +1,6 @@
-﻿namespace CodeApp.Domain.Entities
+﻿using CodeApp.Domain.Enums;
+
+namespace CodeApp.Domain.Entities
 {
     public class Language : BaseEntity
     {
@@ -14,6 +16,6 @@
         public ICollection<Question> Questions { get; set; }
         // A language has more than one question
         public ICollection<Subject> Subjects { get; set; }
-
+        public StatusType Status { get; set; }
     }
 }
