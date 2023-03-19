@@ -38,7 +38,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
-        [HttpDelete]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _mediator.Send(new DeleteLanguageCommandRequest(id));

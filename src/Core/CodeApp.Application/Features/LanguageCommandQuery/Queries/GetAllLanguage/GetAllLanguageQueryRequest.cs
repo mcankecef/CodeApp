@@ -6,5 +6,6 @@ namespace CodeApp.Application.Features.LanguageCommandQuery.Queries.GetAllLangua
 {
     public class GetAllLanguageQueryRequest : IRequest<BaseResponse<List<GetAllLanguageDto>>>
     {
+        
     }
 }

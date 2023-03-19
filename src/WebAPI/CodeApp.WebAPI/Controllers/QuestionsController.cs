@@ -1,4 +1,5 @@
 ﻿using CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuestion;
+using CodeApp.Application.Features.QuestionCommandQuery.Commands.DeleteQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetByIdQuestion;
@@ -22,9 +23,9 @@ namespace CodeApp.WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int questionLevel,Guid languageId)
+        public async Task<IActionResult> GetAll([FromQuery] int questionLevel, Guid languageId)
         {
-            var questions = await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel,languageId));
+            var questions = await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel, languageId));
 
             return Ok(questions);
         }
@@ -48,6 +49,14 @@ namespace CodeApp.WebAPI.Controllers
             var question = await _mediator.Send(new GetQuestionByIdQueryRequest(id));
 
             return Ok(question);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _mediator.Send(new DeleteQuestionCommandRequest(id));
+
+            return NoContent();
         }
 
     }

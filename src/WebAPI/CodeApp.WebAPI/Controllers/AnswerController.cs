@@ -32,7 +32,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return StatusCode(201,response);
         }
-        [HttpDelete("{questionId}")]
+        [HttpPatch("{questionId}")]
         public async Task<IActionResult> Delete(Guid questionId)
         {
             await _mediator.Send(new DeleteAnswerCommandRequest(questionId));

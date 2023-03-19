@@ -2,6 +2,7 @@
 using CodeApp.Application.Dtos.Question;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,8 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
         {
             var questions = await _questionReadRepository.Queryable()
                 .Include(q => q.Answers).Include(q => q.Language)
-                .Where(q=>q.LanguageId == request.LanguageId)
+                .Where(q => q.Status == StatusType.Active)
+                .Where(q => q.LanguageId == request.LanguageId)
                 .Where(q => (int)q.Level == request.QuestionLevel)
                 .OrderBy(q => Guid.NewGuid())
                 .Take(10)

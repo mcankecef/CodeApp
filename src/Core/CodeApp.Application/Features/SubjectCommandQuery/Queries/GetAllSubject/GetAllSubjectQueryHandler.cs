@@ -2,6 +2,7 @@
 using CodeApp.Application.Dtos.Subject;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,13 +23,14 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject
         {
             var subjects = await _subjectReadRepository
                 .Queryable()
-                .Include(s=>s.Language)
-                .Where(s=>s.LanguageId == request.LanguageId)
+                .Include(s => s.Language)
+                .Where(s => s.Status == StatusType.Active)
+                .Where(s => s.LanguageId == request.LanguageId)
                 .ToListAsync();
 
             var result = _mapper.Map<List<GetAllSubjectDto>>(subjects);
 
-            return new BaseResponse<List<GetAllSubjectDto>>(result,true);
+            return new BaseResponse<List<GetAllSubjectDto>>(result, true);
         }
     }
 }

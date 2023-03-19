@@ -1,6 +1,7 @@
 ﻿using CodeApp.Application.Dtos;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,8 +25,7 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.DeleteAnswer
                 .Where(x => x.QuestionId == request.QuestionId)
                 .ToListAsync();
 
-            if (deletedAnswers is null)
-                throw new ArgumentNullException($"{nameof(deletedAnswers)} is not found");
+            deletedAnswers.ForEach(a => a.Status = StatusType.Deleted);
 
             _answerWriteRepository.RemoveRange(deletedAnswers);
 

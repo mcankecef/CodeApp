@@ -5,5 +5,6 @@ namespace CodeApp.Application.Repositories
 {
     public interface IAnswerReadRepository : IReadRepository<Answer>
     {
+        Task<List<Answer>> GetAllByQuestionIdAsync(Guid questionId);
     }
 }

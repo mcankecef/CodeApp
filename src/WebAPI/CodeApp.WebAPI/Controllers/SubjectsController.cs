@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Features.AnswerCommandQuery.Commands.CreateAnswer;
 using CodeApp.Application.Features.SubjectCommandQuery.Commands.CreateSubject;
+using CodeApp.Application.Features.SubjectCommandQuery.Commands.DeleteSubject;
 using CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject;
 using CodeApp.Application.Features.SubjectCommandQuery.Queries.GetSubjectById;
 using MediatR;
@@ -42,6 +43,13 @@ namespace CodeApp.WebAPI.Controllers
             var subject = await _mediator.Send(request);
 
             return StatusCode(201, subject);
+        }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _mediator.Send(new DeleteSubjectCommandRequest(id));
+
+            return NoContent();
         }
     }
 }

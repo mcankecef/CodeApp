@@ -1,6 +1,7 @@
 ﻿using CodeApp.Application.Dtos.Answer;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,8 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Queries.GetAllAnswer
         {
             var answers = await _answerReadRepository
                 .Queryable()
-                .Include(x => x.Question)
+                .Include(a => a.Question)
+                .Where(a=>a.Status == StatusType.Active)
                 .ToListAsync();
 
             var dto = new GetAllAnswerDto

@@ -1,6 +1,7 @@
 ﻿using CodeApp.Application.Dtos;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
 
 namespace CodeApp.Application.Features.LanguageCommandQuery.Commands.DeleteLanguage
@@ -21,9 +22,11 @@ namespace CodeApp.Application.Features.LanguageCommandQuery.Commands.DeleteLangu
             var deletedLanguage = await _languageReadRepository.GetByIdAsync(request.Id);
 
             if (deletedLanguage is null)
-                throw new ArgumentNullException($"{nameof(deletedLanguage)} is not found");
+                throw new ArgumentNullException("Language is not found");
 
-            _languageWriteRepository.Remove(deletedLanguage);
+            deletedLanguage.Status = StatusType.Deleted;
+
+            _languageWriteRepository.Update(deletedLanguage);
 
             return new BaseResponse<NoContentDto>("Deleted language succesfully", true);
         }

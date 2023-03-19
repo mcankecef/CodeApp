@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using CodeApp.Domain.Enums;
+using System.Linq.Expressions;
 
 namespace CodeApp.Application.Repositories
 {
@@ -8,5 +9,6 @@ namespace CodeApp.Application.Repositories
         Task<T> GetByIdAsync(object id);
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
         IQueryable<T> Queryable();
+        Task<List<T>> GetAllByStatusAsync(StatusType statusType);
     }
 }
