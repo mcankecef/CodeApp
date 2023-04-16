@@ -5,7 +5,8 @@ namespace CodeApp.Application.Token
 {
     public interface ITokenHandler
     {
-        TokenDto CreateAccessToken(int minute, List<Claim> authClaims);
+        TokenDto CreateAccessToken(int minute, List<Claim>? authClaims);
+        string CreateRefreshToken();
     }
 
 }

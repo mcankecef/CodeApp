@@ -8,5 +8,7 @@ namespace CodeApp.Domain.Entities.Identity
         public int Score { get; set; }
         public Guid? AvatarId { get; set; }
         public Avatar Avatar { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenEndDate { get; set; }
     }
 }

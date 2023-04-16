@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Dtos;
 using CodeApp.Application.Dtos.User;
+using CodeApp.Domain.Entities.Identity;
 
 namespace CodeApp.Application.Abstractions
 {
@@ -12,6 +13,7 @@ namespace CodeApp.Application.Abstractions
         Task<NoContentDto> UpdateUser(UpdateUserDto updateUserDto);
         Task<NoContentDto> DeleteUser(string userId);
         Task<string> UpdateUserAvatar(UpdateUserAvatarDto updateUserAvatarDto);
+        Task UpdateRefreshToken(AppUser user, string refreshToken, DateTime refreshTokenLifeTime);
 
     }
 }

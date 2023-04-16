@@ -2,6 +2,7 @@
 using CodeApp.Application.Abstractions;
 using CodeApp.Application.Dtos;
 using CodeApp.Application.Dtos.User;
+using CodeApp.Application.Exceptions;
 using CodeApp.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -104,8 +105,8 @@ namespace CodeApp.Persistance.Services
         public async Task<string> UpdateUserAvatar(UpdateUserAvatarDto updateUserAvatarDto)
         {
             var user = await _userManager.Users
-                .Include(u=>u.Avatar)
-                .FirstOrDefaultAsync(u=>u.Id == updateUserAvatarDto.UserId);
+                .Include(u => u.Avatar)
+                .FirstOrDefaultAsync(u => u.Id == updateUserAvatarDto.UserId);
 
             if (user is null)
                 throw new ArgumentNullException($"User is not found");
@@ -117,6 +118,20 @@ namespace CodeApp.Persistance.Services
             var imageUrl = user.Avatar.ImageUrl;
 
             return imageUrl;
+        }
+
+        public async Task UpdateRefreshToken(AppUser user, string refreshToken, DateTime refreshTokenLifeTime)
+        {
+
+            if (user != null)
+            {
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenEndDate = refreshTokenLifeTime;
+
+                await _userManager.UpdateAsync(user);
+            }
+            else
+                throw new UserNotFoundException("User is not found!");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CodeApp.Application.Dtos.Token;
+﻿using CodeApp.Application.Abstractions;
+using CodeApp.Application.Dtos.Token;
 using CodeApp.Application.Exceptions;
 using CodeApp.Application.Token;
 using CodeApp.Application.Wrapper;
@@ -17,14 +18,15 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenHandler _tokenHandler;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserService _userService;
 
-
-        public LoginUserCommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenHandler tokenHandler, IHttpContextAccessor httpContextAccessor)
+        public LoginUserCommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenHandler tokenHandler, IHttpContextAccessor httpContextAccessor, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenHandler = tokenHandler;
             _httpContextAccessor = httpContextAccessor;
+            _userService = userService;
         }
 
         public async Task<BaseResponse<TokenDto>> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
@@ -47,8 +49,12 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
                     new Claim(ClaimTypes.NameIdentifier,user.Id),
                     new Claim(JwtRegisteredClaimNames.Jti,new Guid().ToString()),
                 };
-                var token = _tokenHandler.CreateAccessToken(5, authClaims);
+                var token = _tokenHandler.CreateAccessToken(7, authClaims);
                 token.UserId = user.Id;
+
+                var refreshTokenLifeTime = token.Expiration.AddHours(1);
+
+                await _userService.UpdateRefreshToken(user, token.RefreshToken, refreshTokenLifeTime);
 
                 return new BaseResponse<TokenDto>("Succesfully logged into the application", true, token);
             }

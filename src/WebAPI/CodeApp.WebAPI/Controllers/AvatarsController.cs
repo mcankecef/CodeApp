@@ -25,6 +25,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return Ok(avatars);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateAvatarCommandRequest request)
         {

@@ -3,8 +3,6 @@ using CodeApp.Application.Features.QuestionCommandQuery.Commands.DeleteQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetByIdQuestion;
-using CodeApp.Domain.Enums;
-using CodeApp.WebAPI.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +20,7 @@ namespace CodeApp.WebAPI.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] int questionLevel, Guid languageId)
         {
@@ -29,6 +28,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return Ok(questions);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateQuestionCommandRequest request)
         {
@@ -36,6 +36,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return StatusCode(201, response);
         }
+
         [HttpPut]
         public async Task<IActionResult> Update(UpdateQuestionCommandRequest request)
         {
@@ -43,6 +44,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
+
         [HttpGet, Route("GetQuestionById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {

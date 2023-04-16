@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeApp.Persistance.Migrations
 {
     [DbContext(typeof(CodeAppDbContext))]
-    [Migration("20230319124611_changed-status-type-nullable")]
-    partial class changedstatustypenullable
+    [Migration("20230409202143_added-new-properties-in-appuser")]
+    partial class addednewpropertiesinappuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,6 +152,13 @@ namespace CodeApp.Persistance.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenEndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
