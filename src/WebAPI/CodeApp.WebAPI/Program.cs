@@ -1,6 +1,7 @@
 using CodeApp.Application;
 using CodeApp.Infrastructure;
 using CodeApp.Persistance;
+using CodeApp.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -44,7 +45,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 
+app.UseExceptionMiddleware();
 app.UseAuthentication();
 
 app.UseAuthorization();
