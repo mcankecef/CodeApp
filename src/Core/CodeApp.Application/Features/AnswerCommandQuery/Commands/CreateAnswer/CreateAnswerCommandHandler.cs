@@ -3,6 +3,7 @@ using CodeApp.Application.Dtos.Answer;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
 using CodeApp.Domain.Entities;
+using CodeApp.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +34,7 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Commands.CreateAnswer
 
             foreach (var ans in request.AnswerName)
             {
-                answers.Add(new Answer { QuestionId = request.QuestionId, AnswerName = ans });
+                answers.Add(new Answer { QuestionId = request.QuestionId, AnswerName = ans, Status = StatusType.Active });
             }
 
             await _answerWriteRepository.CreateRangeAsync(answers);
