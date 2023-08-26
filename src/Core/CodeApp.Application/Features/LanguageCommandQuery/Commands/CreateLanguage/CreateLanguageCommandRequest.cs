@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Dtos.Language;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
 
 namespace CodeApp.Application.Features.LanguageCommandQuery.Commands.CreateLanguage
@@ -8,5 +9,6 @@ namespace CodeApp.Application.Features.LanguageCommandQuery.Commands.CreateLangu
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public StatusType Status { get; set; }
     }
 }
