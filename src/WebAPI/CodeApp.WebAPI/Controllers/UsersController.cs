@@ -22,6 +22,7 @@ namespace CodeApp.WebAPI.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -29,6 +30,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return Ok(result);
         }
+
         [HttpPut, Route("UpdateScore")]
         public async Task<IActionResult> UpdateScore(UpdateScoreCommandRequest request)
         {
@@ -36,20 +38,23 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
-        [HttpGet, Route("GetUserScore/{userId}")]
+
+        [HttpGet, Route("GetScore/{userId}")]
         public async Task<IActionResult> GetScore(string userId)
         {
             var result = await _mediator.Send(new GetAllUserScoreQueryRequest(userId));
 
             return Ok(result);
         }
-        [HttpGet, Route("GetUserById/{userId}")]
+
+        [HttpGet, Route("GetById/{userId}")]
         public async Task<IActionResult> GetById(string userId)
         {
             var result = await _mediator.Send(new GetUserByIdQueryRequest(userId));
 
             return Ok(result);
         }
+
         [HttpPut]
         public async Task<IActionResult> Update(UpdateUserCommandRequest request)
         {
@@ -57,6 +62,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
+
         [HttpDelete("{userId}")]
         public async Task<IActionResult> Delete(string userId)
         {
@@ -64,7 +70,8 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
-        [HttpPut,Route("updateUserAvatar")]
+
+        [HttpPut,Route("updateAvatar")]
         public async Task<IActionResult> UpdateAvatar(UpdateUserAvatarCommandRequest request)
         {
             var avatarImageUrl =await _mediator.Send(request);

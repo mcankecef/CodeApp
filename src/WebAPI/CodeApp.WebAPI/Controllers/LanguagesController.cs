@@ -19,11 +19,13 @@ namespace CodeApp.WebAPI.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateLanguageCommandRequest request)
         {
@@ -31,6 +33,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return StatusCode(201, response);
         }
+
         [HttpPut]
         public async Task<IActionResult> Update(UpdateLanguageCommandRequest request)
         {
@@ -38,6 +41,7 @@ namespace CodeApp.WebAPI.Controllers
 
             return NoContent();
         }
+
         [HttpPatch("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

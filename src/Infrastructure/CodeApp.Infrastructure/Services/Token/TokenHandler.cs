@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CodeApp.Infrastructure.Services.Token
@@ -20,7 +21,7 @@ namespace CodeApp.Infrastructure.Services.Token
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public TokenDto CreateAccessToken(int minute, List<Claim> authClaims)
+        public TokenDto CreateAccessToken(int day, List<Claim>? authClaims)
         {
             var token = new TokenDto();
 
@@ -28,7 +29,7 @@ namespace CodeApp.Infrastructure.Services.Token
 
             var signinCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            token.Expiration = DateTime.UtcNow.AddDays(minute);
+            token.Expiration = DateTime.UtcNow.AddDays(day);
 
             var securityToken = new JwtSecurityToken(
                 audience: _configuration["Token:Audience"],
@@ -41,7 +42,18 @@ namespace CodeApp.Infrastructure.Services.Token
 
             var tokenHandler = new JwtSecurityTokenHandler();
             token.AccessToken = tokenHandler.WriteToken(securityToken);
+
+            token.RefreshToken = CreateRefreshToken();
+
             return token;
+        }
+
+        public string CreateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using RandomNumberGenerator rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

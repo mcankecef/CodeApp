@@ -10,11 +10,11 @@ namespace CodeApp.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = "Admin")]
-    public class AnswerController : ControllerBase
+    public class AnswersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public AnswerController(IMediator mediator)
+        public AnswersController(IMediator mediator)
         {
             _mediator = mediator;
         }
