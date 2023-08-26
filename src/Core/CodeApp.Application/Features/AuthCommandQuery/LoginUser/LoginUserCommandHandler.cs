@@ -6,6 +6,7 @@ using CodeApp.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -29,9 +30,14 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
 
         public async Task<BaseResponse<TokenDto>> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByNameAsync(request.UsernameOrEmail);
+            var userQuery = _userManager.Users
+                .Include(u => u.Avatar).AsQueryable();
 
-            user ??= await _userManager.FindByEmailAsync(request.UsernameOrEmail);
+            var user = await userQuery
+                .FirstOrDefaultAsync(u => u.UserName == request.UsernameOrEmail);
+
+            user ??= await userQuery
+                .FirstOrDefaultAsync(u => u.Email == request.UsernameOrEmail);
 
             if (user is null)
                 throw new UserLoginFailedException("Username or password incorrect!");
@@ -47,8 +53,14 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
                     new Claim(ClaimTypes.NameIdentifier,user.Id),
                     new Claim(JwtRegisteredClaimNames.Jti,new Guid().ToString()),
                 };
-                var token = _tokenHandler.CreateAccessToken(5, authClaims);
+                var token = _tokenHandler.CreateAccessToken(7, authClaims);
+
                 token.UserId = user.Id;
+                token.ImageUrl = user?.Avatar?.ImageUrl;
+                token.Score = user.Score;
+                token.UserName = user.UserName;
+                token.Email = user.Email;
+                token.FullName = user.FullName;
 
                 return new BaseResponse<TokenDto>("Succesfully logged into the application", true, token);
             }
