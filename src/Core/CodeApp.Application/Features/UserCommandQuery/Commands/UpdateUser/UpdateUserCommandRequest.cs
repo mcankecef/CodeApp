@@ -13,7 +13,8 @@ namespace CodeApp.Application.Features.UserCommandQuery.Commands.UpdateUser
             Email = email;
         }
         public string UserId { get; set; }
-        public string FullName { get; set; }
+        public string? FullName { get; set; }
         public string? Email { get; set; }
+        public Guid? AvatarId { get; set; }
     }
 }
