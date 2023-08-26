@@ -23,16 +23,20 @@ namespace CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser
         public async Task<BaseResponse<CreateUserDto>> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
         {
             if (request is null)
-                throw new ArgumentNullException($"Model is not valid!");
+                throw new ArgumentNullException("Model is not valid!");
 
             var appUser = new AppUser
             {
-                UserName = request.FullName,
+                UserName = request.UserName,
                 Email = request.Email,
-                FullName = request.FullName
+                FullName = request.FullName,
+                AvatarId = request.AvatarId
             };
-            var result = await _userManager.CreateAsync(appUser,request.Password);
 
+            if (!request.Password.Equals(request.PasswordConfirm))
+                return new BaseResponse<CreateUserDto>("Passwords do not match!", false);
+
+            var result = await _userManager.CreateAsync(appUser, request.Password);
 
             if (result.Succeeded)
             {
