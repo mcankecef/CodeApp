@@ -2574,19 +2574,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\CAN\\.nuget\\packages\\": {}
+    "C:\\Users\\canke\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj",
+      "projectUniqueName": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj",
       "projectName": "CodeApp.Application",
-      "projectPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj",
-      "packagesPath": "C:\\Users\\CAN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\Core\\CodeApp.Application\\obj\\",
+      "projectPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj",
+      "packagesPath": "C:\\Users\\canke\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\CAN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\canke\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2600,8 +2600,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj": {
-              "projectPath": "C:\\Users\\CAN\\source\\repos\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj"
+            "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj": {
+              "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj"
             }
           }
         }
@@ -2648,12 +2648,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.19, 6.0.19]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.19, 6.0.19]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.19, 6.0.19]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.305\\RuntimeIdentifierGraph.json"
       }
     }
   }
