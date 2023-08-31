@@ -16,18 +16,11 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public QuestionsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public QuestionsController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] int questionLevel, Guid languageId)
-        {
-            var questions = await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel, languageId));
-
-            return Ok(questions);
-        }
+        => Ok(await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel, languageId)));
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateQuestionCommandRequest request)
@@ -47,11 +40,7 @@ namespace CodeApp.WebAPI.Controllers
 
         [HttpGet, Route("GetQuestionById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
-        {
-            var question = await _mediator.Send(new GetQuestionByIdQueryRequest(id));
-
-            return Ok(question);
-        }
+            => Ok(await _mediator.Send(new GetQuestionByIdQueryRequest(id)));
 
         [HttpPatch("{id}")]
         public async Task<IActionResult> Delete(Guid id)

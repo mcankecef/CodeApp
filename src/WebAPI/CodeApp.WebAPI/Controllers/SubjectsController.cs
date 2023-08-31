@@ -15,18 +15,11 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public SubjectsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public SubjectsController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] Guid languageId)
-        {
-            var subjects = await _mediator.Send(new GetAllSubjectQueryRequest(languageId));
-
-            return Ok(subjects);
-        }
+            => Ok(await _mediator.Send(new GetAllSubjectQueryRequest(languageId)));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)

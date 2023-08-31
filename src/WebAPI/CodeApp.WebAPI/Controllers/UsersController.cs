@@ -18,18 +18,11 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public UsersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public UsersController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
-        {
-            var result = await _mediator.Send(new GetAllUserQueryRequest());
-
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(new GetAllUserQueryRequest()));
 
         [HttpPut, Route("UpdateScore")]
         public async Task<IActionResult> UpdateScore(UpdateScoreCommandRequest request)
@@ -41,19 +34,11 @@ namespace CodeApp.WebAPI.Controllers
 
         [HttpGet, Route("GetScore/{userId}")]
         public async Task<IActionResult> GetScore(string userId)
-        {
-            var result = await _mediator.Send(new GetAllUserScoreQueryRequest(userId));
-
-            return Ok(result);
-        }
+            => Ok( await _mediator.Send(new GetAllUserScoreQueryRequest(userId)));
 
         [HttpGet, Route("GetById/{userId}")]
         public async Task<IActionResult> GetById(string userId)
-        {
-            var result = await _mediator.Send(new GetUserByIdQueryRequest(userId));
-
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(new GetUserByIdQueryRequest(userId)));
 
         [HttpPut]
         public async Task<IActionResult> Update(UpdateUserCommandRequest request)
@@ -71,12 +56,8 @@ namespace CodeApp.WebAPI.Controllers
             return NoContent();
         }
 
-        [HttpPut,Route("updateAvatar")]
+        [HttpPut, Route("updateAvatar")]
         public async Task<IActionResult> UpdateAvatar(UpdateUserAvatarCommandRequest request)
-        {
-            var avatarImageUrl =await _mediator.Send(request);
-
-            return Ok(avatarImageUrl);
-        }
+            => Ok(await _mediator.Send(request));
     }
 }

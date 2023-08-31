@@ -13,18 +13,11 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public AvatarsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public AvatarsController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var avatars = await _mediator.Send(new GetAllAvatarQueryRequest());
-
-            return Ok(avatars);
-        }
+        public async Task<IActionResult> GetAll() 
+        => Ok(await _mediator.Send(new GetAllAvatarQueryRequest()));
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateAvatarCommandRequest request)

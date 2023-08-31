@@ -15,16 +15,11 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public LanguagesController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public LanguagesController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
-        }
+        public async Task<IActionResult> GetAll() 
+        => Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateLanguageCommandRequest request)

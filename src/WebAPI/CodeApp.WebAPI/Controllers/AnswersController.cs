@@ -14,23 +14,18 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public AnswersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public AnswersController(IMediator mediator) => _mediator = mediator;
+        
         [HttpGet]
         public async Task<IActionResult> GetAll()
-        {
-            var response = await _mediator.Send(new GetAllAnswerQueryRequest());
+            => Ok(await _mediator.Send(new GetAllAnswerQueryRequest()));
 
-            return Ok(response);
-        }
         [HttpPost]
         public async Task<IActionResult> Create(CreateAnswerCommandRequest request)
         {
             var response = await _mediator.Send(request);
 
-            return StatusCode(201,response);
+            return StatusCode(201, response);
         }
         [HttpPatch("{questionId}")]
         public async Task<IActionResult> Delete(Guid questionId)

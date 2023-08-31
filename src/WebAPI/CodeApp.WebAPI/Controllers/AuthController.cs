@@ -12,34 +12,19 @@ namespace CodeApp.WebAPI.Controllers
     {
         private readonly IMediator _mediator;
 
-        public AuthController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public AuthController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost, Route("Login")]
         public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
-        {
-            var result = await _mediator.Send(loginUserCommandRequest);
-
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(loginUserCommandRequest));
 
         [HttpPost, Route("RefreshTokenLogin")]
         public async Task<IActionResult> RefreshTokenLogin(RefreshTokenLoginCommandRequest refreshTokenLoginCommandRequest)
-        {
-            var result = await _mediator.Send(refreshTokenLoginCommandRequest);
-
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(refreshTokenLoginCommandRequest));
 
         [HttpPost, Route("Register")]
         public async Task<IActionResult> Register(CreateUserCommandRequest createUserCommandRequest)
-        {
-            var result = await _mediator.Send(createUserCommandRequest);
-
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(createUserCommandRequest));
 
     }
 }
