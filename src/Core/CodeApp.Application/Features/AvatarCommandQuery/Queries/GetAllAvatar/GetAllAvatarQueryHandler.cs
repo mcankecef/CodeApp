@@ -2,7 +2,9 @@
 using CodeApp.Application.Dtos.Avatar;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeApp.Application.Features.AvatarCommandQuery.Queries.GetAllAvatar
 {
@@ -19,7 +21,9 @@ namespace CodeApp.Application.Features.AvatarCommandQuery.Queries.GetAllAvatar
 
         public async Task<BaseResponse<List<GetAllAvatarDto>>> Handle(GetAllAvatarQueryRequest request, CancellationToken cancellationToken)
         {
-            var avatars = await _avatarReadRepository.GetAllAsync();
+            var avatars = await _avatarReadRepository
+                .Where(a => a.Status == StatusType.Active)
+                .ToListAsync();
 
             var result = _mapper.Map<List<GetAllAvatarDto>>(avatars);
 
