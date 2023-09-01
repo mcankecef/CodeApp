@@ -30,5 +30,8 @@ namespace CodeApp.Persistance.Repositories
         public async Task<T> GetByIdAsync(object id) => await _context.Set<T>().FindAsync(id);
 
         public IQueryable<T> Queryable() => _context.Set<T>().AsQueryable();
+
+        public IQueryable<T> Where(Expression<Func<T, bool>> expression) 
+            => _context.Set<T>().Where(expression).AsNoTracking();
     }
 }

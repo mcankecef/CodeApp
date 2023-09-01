@@ -10,5 +10,6 @@ namespace CodeApp.Application.Repositories
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
         IQueryable<T> Queryable();
         Task<List<T>> GetAllByStatusAsync(StatusType statusType);
+        IQueryable<T> Where(Expression<Func<T, bool>> expression);
     }
 }
