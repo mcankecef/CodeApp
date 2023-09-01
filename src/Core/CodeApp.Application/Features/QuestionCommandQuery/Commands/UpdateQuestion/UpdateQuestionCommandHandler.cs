@@ -36,6 +36,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuest
             question.Description = request.Description;
             question.CorrectAnswer = request.CorrectAnswer;
             question.Score = request.Score;
+            question.Status = request.Status;
 
             _questionWriteRepository.Update(question);
 

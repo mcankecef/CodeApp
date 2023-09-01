@@ -14,5 +14,6 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuest
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
         public QuestionLevel Level { get; set; }
+        public StatusType Status { get; set; }
     }
 }
