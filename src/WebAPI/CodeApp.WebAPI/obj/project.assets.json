@@ -3712,11 +3712,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
+      "projectUniqueName": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
       "projectName": "CodeApp.WebAPI",
-      "projectPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
+      "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\CodeApp.WebAPI.csproj",
       "packagesPath": "C:\\Users\\canke\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\obj\\",
+      "outputPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\WebAPI\\CodeApp.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\canke\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3734,8 +3734,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj": {
-              "projectPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj"
+            "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj": {
+              "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj"
             },
             "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Infrastructure\\CodeApp.Infrastructure.csproj": {
               "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Infrastructure\\CodeApp.Infrastructure.csproj"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7oPtwgHz+1DWdNrHBsiNIP1Jta6YHqWbRaSP4sbBu1zWr/+v0iBCo/Ywntv72tYcHZDIxhokehOHApygJkkjjw==",
+  "dgSpecHash": "uKCB/Oa6GrDdbYUyNf7bsRXyE7X/5CDj1Z49wgwZiLcJUy3N4KrE/qEghpYirKtEkfnsAwQhqKH1uRO5bfrIQQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj",
+  "projectFilePath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\canke\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\canke\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

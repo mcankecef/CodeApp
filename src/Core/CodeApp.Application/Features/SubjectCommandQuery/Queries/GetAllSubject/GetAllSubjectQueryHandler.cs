@@ -21,12 +21,7 @@ namespace CodeApp.Application.Features.SubjectCommandQuery.Queries.GetAllSubject
 
         public async Task<BaseResponse<List<GetAllSubjectDto>>> Handle(GetAllSubjectQueryRequest request, CancellationToken cancellationToken)
         {
-            var subjects = await _subjectReadRepository
-                .Queryable()
-                .Include(s => s.Language)
-                .Where(s => s.Status == StatusType.Active)
-                .Where(s => s.LanguageId == request.LanguageId)
-                .ToListAsync();
+            var subjects = await _subjectReadRepository.GetAllAsync();
 
             var result = _mapper.Map<List<GetAllSubjectDto>>(subjects);
 
