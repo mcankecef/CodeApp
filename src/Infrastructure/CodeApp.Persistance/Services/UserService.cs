@@ -59,12 +59,15 @@ namespace CodeApp.Persistance.Services
 
         public async Task<GetUserByIdDto> GetUserById(string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.Users
+                .Include(u => u.Avatar)
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user is null)
                 throw new ArgumentNullException($"User is not found");
 
             var response = _mapper.Map<GetUserByIdDto>(user);
+            response.ImageUrl = user.Avatar?.ImageUrl;
 
             return response;
         }
