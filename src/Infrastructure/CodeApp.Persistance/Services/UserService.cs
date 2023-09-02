@@ -82,13 +82,15 @@ namespace CodeApp.Persistance.Services
             if (user is null)
                 throw new ArgumentNullException($"User is not found");
 
-            else if (email.Email != user.Email)
-                throw new ArgumentException("Email already exists");
+            else if (email != null)
+                if (email.Email != user.Email) throw new ArgumentException("Email already exists");
 
-            user.Email = updateUserDto.Email;
-            user.FullName = updateUserDto.FullName;
+            user.Email = updateUserDto.Email ?? user.Email;
+            user.FullName = updateUserDto.FullName ?? user.FullName;
+            user.AvatarId = updateUserDto.AvatarId ?? user.AvatarId;
+            user.UserName = updateUserDto.UserName ?? user.UserName;
 
-            await _userManager.UpdateAsync(user);
+                await _userManager.UpdateAsync(user);
 
             return new NoContentDto();
         }
@@ -108,7 +110,6 @@ namespace CodeApp.Persistance.Services
         public async Task<string> UpdateUserAvatar(UpdateUserAvatarDto updateUserAvatarDto)
         {
             var user = await _userManager.Users
-                .Include(u => u.Avatar)
                 .FirstOrDefaultAsync(u => u.Id == updateUserAvatarDto.UserId);
 
             if (user is null)
@@ -118,7 +119,11 @@ namespace CodeApp.Persistance.Services
 
             await _userManager.UpdateAsync(user);
 
-            var imageUrl = user.Avatar.ImageUrl;
+            var imageUrl = await _userManager.Users
+                .Include(u => u.Avatar)
+                .Where(u => u.Id == updateUserAvatarDto.UserId)
+                .Select(u => u.Avatar.ImageUrl)
+                .FirstOrDefaultAsync();
 
             return imageUrl;
         }

@@ -14,6 +14,5 @@ namespace CodeApp.Application.Abstractions
         Task<NoContentDto> DeleteUser(string userId);
         Task<string> UpdateUserAvatar(UpdateUserAvatarDto updateUserAvatarDto);
         Task UpdateRefreshToken(AppUser user, string refreshToken, DateTime refreshTokenLifeTime);
-
     }
 }
