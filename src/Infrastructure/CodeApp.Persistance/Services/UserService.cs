@@ -88,9 +88,8 @@ namespace CodeApp.Persistance.Services
             user.Email = updateUserDto.Email ?? user.Email;
             user.FullName = updateUserDto.FullName ?? user.FullName;
             user.AvatarId = updateUserDto.AvatarId ?? user.AvatarId;
-            user.UserName = updateUserDto.UserName ?? user.UserName;
 
-                await _userManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user);
 
             return new NoContentDto();
         }
