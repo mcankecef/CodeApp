@@ -30,6 +30,7 @@ namespace CodeApp.Persistance
                 //options.User.AllowedUserNameCharacters 
             }).AddEntityFrameworkStores<CodeAppDbContext>();
 
+
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddTransient<ILanguageReadRepository, LanguageReadRepository>();

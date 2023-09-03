@@ -7,48 +7,46 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeApp.WebAPI.Controllers
+namespace CodeApp.WebAPI.Controllers;
+[Route("api/[controller]")]
+[ApiController]
+[Authorize(AuthenticationSchemes = "Admin")]
+public class QuestionsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
-    public class QuestionsController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public QuestionsController(IMediator mediator) => _mediator = mediator;
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] int questionLevel, Guid languageId)
+    => Ok(await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel, languageId)));
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateQuestionCommandRequest request)
     {
-        private readonly IMediator _mediator;
+        var response = await _mediator.Send(request);
 
-        public QuestionsController(IMediator mediator) => _mediator = mediator;
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int questionLevel, Guid languageId)
-        => Ok(await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel, languageId)));
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateQuestionCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
-
-            return StatusCode(201, response);
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateQuestionCommandRequest request)
-        {
-            await _mediator.Send(request);
-
-            return NoContent();
-        }
-
-        [HttpGet, Route("GetQuestionById/{id}")]
-        public async Task<IActionResult> GetById(Guid id)
-            => Ok(await _mediator.Send(new GetQuestionByIdQueryRequest(id)));
-
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            await _mediator.Send(new DeleteQuestionCommandRequest(id));
-
-            return NoContent();
-        }
-
+        return StatusCode(201, response);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateQuestionCommandRequest request)
+    {
+        await _mediator.Send(request);
+
+        return NoContent();
+    }
+
+    [HttpGet, Route("GetQuestionById/{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+        => Ok(await _mediator.Send(new GetQuestionByIdQueryRequest(id)));
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteQuestionCommandRequest(id));
+
+        return NoContent();
+    }
+
 }

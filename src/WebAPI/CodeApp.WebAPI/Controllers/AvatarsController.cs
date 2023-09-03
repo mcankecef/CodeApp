@@ -4,27 +4,25 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeApp.WebAPI.Controllers
+namespace CodeApp.WebAPI.Controllers;
+[Route("api/[controller]")]
+[ApiController]
+[Authorize(AuthenticationSchemes = "Admin")]
+public class AvatarsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
-    public class AvatarsController :ControllerBase
+    private readonly IMediator _mediator;
+
+    public AvatarsController(IMediator mediator) => _mediator = mediator;
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    => Ok(await _mediator.Send(new GetAllAvatarQueryRequest()));
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateAvatarCommandRequest request)
     {
-        private readonly IMediator _mediator;
+        var avatar = await _mediator.Send(request);
 
-        public AvatarsController(IMediator mediator) => _mediator = mediator;
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll() 
-        => Ok(await _mediator.Send(new GetAllAvatarQueryRequest()));
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateAvatarCommandRequest request)
-        {
-            var avatar = await _mediator.Send(request);
-
-            return StatusCode(201, avatar);
-        }
+        return StatusCode(201, avatar);
     }
 }

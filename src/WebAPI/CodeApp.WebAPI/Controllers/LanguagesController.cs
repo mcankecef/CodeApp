@@ -6,43 +6,41 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeApp.WebAPI.Controllers
+namespace CodeApp.WebAPI.Controllers;
+[Route("api/[controller]")]
+[ApiController]
+[Authorize(AuthenticationSchemes = "Admin")]
+public class LanguagesController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes ="Admin")]
-    public class LanguagesController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public LanguagesController(IMediator mediator) => _mediator = mediator;
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    => Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateLanguageCommandRequest request)
     {
-        private readonly IMediator _mediator;
+        var response = await _mediator.Send(request);
 
-        public LanguagesController(IMediator mediator) => _mediator = mediator;
+        return StatusCode(201, response);
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll() 
-        => Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateLanguageCommandRequest request)
+    {
+        await _mediator.Send(request);
 
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateLanguageCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
+        return NoContent();
+    }
 
-            return StatusCode(201, response);
-        }
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteLanguageCommandRequest(id));
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdateLanguageCommandRequest request)
-        {
-            await _mediator.Send(request);
-
-            return NoContent();
-        }
-
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            await _mediator.Send(new DeleteLanguageCommandRequest(id));
-
-            return NoContent();
-        }
+        return NoContent();
     }
 }

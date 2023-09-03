@@ -50,7 +50,6 @@ namespace CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser
             foreach (var error in result.Errors)
                 message += $"{error.Description}";
 
-
             return new BaseResponse<CreateUserDto>(message, false);
         }
     }

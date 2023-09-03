@@ -6,42 +6,40 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeApp.WebAPI.Controllers
+namespace CodeApp.WebAPI.Controllers;
+[Route("api/[controller]")]
+[ApiController]
+[Authorize(AuthenticationSchemes = "Admin")]
+public class SubjectsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
-    public class SubjectsController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public SubjectsController(IMediator mediator) => _mediator = mediator;
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] Guid languageId)
+        => Ok(await _mediator.Send(new GetAllSubjectQueryRequest(languageId)));
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(Guid id)
     {
-        private readonly IMediator _mediator;
+        var subject = await _mediator.Send(new GetSubjectByIdQueryRequest(id));
 
-        public SubjectsController(IMediator mediator) => _mediator = mediator;
+        return Ok(subject);
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] Guid languageId)
-            => Ok(await _mediator.Send(new GetAllSubjectQueryRequest(languageId)));
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateSubjectCommandRequest request)
+    {
+        var subject = await _mediator.Send(request);
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
-        {
-            var subject = await _mediator.Send(new GetSubjectByIdQueryRequest(id));
+        return StatusCode(201, subject);
+    }
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteSubjectCommandRequest(id));
 
-            return Ok(subject);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateSubjectCommandRequest request)
-        {
-            var subject = await _mediator.Send(request);
-
-            return StatusCode(201, subject);
-        }
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            await _mediator.Send(new DeleteSubjectCommandRequest(id));
-
-            return NoContent();
-        }
+        return NoContent();
     }
 }
