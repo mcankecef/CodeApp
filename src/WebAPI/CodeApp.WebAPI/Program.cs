@@ -1,6 +1,6 @@
 using CodeApp.Application;
 using CodeApp.Infrastructure;
-using CodeApp.Persistance;
+using CodeApp.Persistence;
 using CodeApp.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationRegistration();
 builder.Services.AddInfrastructureRegistration();
-builder.Services.AddPersistanceRegistration(builder.Configuration);
+builder.Services.AddPersistenceRegistration(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
