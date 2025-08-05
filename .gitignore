@@ -1,0 +1,37 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider files
+.idea/
+*.sln.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+artifacts/
+
+# Others
+*.ncrunch*
+*.out
+*.ide.*	
+
+# Debug files
+*.pdb
+*.mdb
+Debug/
