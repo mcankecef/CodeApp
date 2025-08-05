@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g0ovXjvx73fASNmiNJVZaLDSnQi0fg52JkR+/8qX6X2deG2uEw1gXKs0DAV6lBigIuFiX/LfWyhi0wvvXFa2Og==",
+  "dgSpecHash": "pv4+rXZg7Do=",
   "success": true,
-  "projectFilePath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Infrastructure\\CodeApp.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Infrastructure\\CodeApp.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\canke\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\canke\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
@@ -71,10 +71,7 @@
     "C:\\Users\\canke\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
     "C:\\Users\\canke\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\canke\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512",
-    "C:\\Users\\canke\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
-    "C:\\Users\\canke\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.19\\microsoft.netcore.app.ref.6.0.19.nupkg.sha512",
-    "C:\\Users\\canke\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.19\\microsoft.windowsdesktop.app.ref.6.0.19.nupkg.sha512",
-    "C:\\Users\\canke\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.19\\microsoft.aspnetcore.app.ref.6.0.19.nupkg.sha512"
+    "C:\\Users\\canke\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
   ],
   "logs": []
 }

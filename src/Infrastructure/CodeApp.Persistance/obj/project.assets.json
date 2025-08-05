@@ -3454,19 +3454,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\canke\\.nuget\\packages\\": {}
+    "C:\\Users\\canke\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Persistance\\CodeApp.Persistance.csproj",
+      "projectUniqueName": "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Persistance\\CodeApp.Persistance.csproj",
       "projectName": "CodeApp.Persistance",
-      "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Persistance\\CodeApp.Persistance.csproj",
+      "projectPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Persistance\\CodeApp.Persistance.csproj",
       "packagesPath": "C:\\Users\\canke\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Persistance\\obj\\",
+      "outputPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Infrastructure\\CodeApp.Persistance\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\canke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3474,17 +3479,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://gitlab.linktera.xyz/api/v4/projects/173/packages/nuget/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj": {
-              "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj"
+            "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj": {
+              "projectPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Application\\CodeApp.Application.csproj"
             },
-            "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj": {
-              "projectPath": "c:\\Users\\canke\\OneDrive\\Masaüstü\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj"
+            "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj": {
+              "projectPath": "C:\\Users\\canke\\OneDrive\\Masaüstü\\genel\\programing\\projects\\CodeApp\\src\\Core\\CodeApp.Domain\\CodeApp.Domain.csproj"
             }
           }
         }
@@ -3493,7 +3499,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net6.0": {
@@ -3535,26 +3547,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.19, 6.0.19]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.19, 6.0.19]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.19, 6.0.19]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.305\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
