@@ -1,6 +1,7 @@
 ﻿using CodeApp.Application.Features.AuthCommandQuery.LoginUser;
 using CodeApp.Application.Features.AuthCommandQuery.RefreshToken;
 using CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser;
+using CodeApp.Application.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
