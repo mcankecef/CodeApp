@@ -11,4 +11,6 @@ namespace CodeApp.Domain.Entities.Identity
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenEndDate { get; set; }
     }
+    // language adımları eklenecek hangi language'de nerede kaldığını bilmek lazım.
+    // languageid - step(adım) - user-id
 }

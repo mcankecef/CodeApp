@@ -22,7 +22,7 @@ namespace CodeApp.Application.Features.AnswerCommandQuery.Queries.GetAllAnswer
                 .Queryable()
                 .Include(a => a.Question)
                 .Where(a=>a.Status == StatusType.Active)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             var dto = new GetAllAnswerDto
             {

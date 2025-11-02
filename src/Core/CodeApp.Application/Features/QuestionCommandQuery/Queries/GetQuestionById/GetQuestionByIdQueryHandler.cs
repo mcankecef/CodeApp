@@ -21,6 +21,8 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetQuestionB
 
         public async Task<BaseResponse<GetQuestionByIdDto>> Handle(GetQuestionByIdQueryRequest request, CancellationToken cancellationToken)
         {
+            // group (if konusu) 10 tane soru. (if konusu)
+            // httpContext'ten user-id alınacak ve request.languageid'ye göre kaldığı soru adımı gelecek.
             var question = await _questionReadRepository
                 .Queryable()
                 .Include(q => q.Language)

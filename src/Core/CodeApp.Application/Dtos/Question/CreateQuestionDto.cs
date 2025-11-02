@@ -13,5 +13,6 @@ namespace CodeApp.Application.Dtos.Question
         public QuestionLevel Level { get; set; }
         public Guid LanguageId { get; set; }
         public List<string>? Answers { get; set; }
+        public Guid StepQuestionId { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Dtos.Answer;
 using CodeApp.Application.Dtos.Question;
+using CodeApp.Application.Dtos.StepQuestion;
 using CodeApp.Application.Wrapper;
 using CodeApp.Domain.Enums;
 using MediatR;
@@ -14,6 +15,8 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
         public QuestionLevel Level { get; set; }
+
+        public StepQuestionDto StepQuestion { get; set; }
         public List<string>? Answers { get; set; }
         //public List<CreateAnswerDto>? Answer { get; set; }
     }
