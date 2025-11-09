@@ -33,6 +33,14 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
 
             var dto = _mapper.Map<List<GetAllQuestionDto>>(questions);
 
+            foreach (var question in dto)
+            {
+                if (question.Answers != null && question.Answers.Any())
+                {
+                    question.Answers = question.Answers.OrderBy(x => Guid.NewGuid()).ToList();
+                }
+            }
+
             return new BaseResponse<List<GetAllQuestionDto>>("", true, dto);
         }
     }
