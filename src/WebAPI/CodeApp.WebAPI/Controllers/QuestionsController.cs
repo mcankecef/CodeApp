@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Commands.DeleteQuestion;
+using CodeApp.Application.Features.QuestionCommandQuery.Commands.SubmitAnswers;
 using CodeApp.Application.Features.QuestionCommandQuery.Commands.UpdateQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuestion;
 using CodeApp.Application.Features.QuestionCommandQuery.Queries.GetByIdQuestion;
@@ -47,6 +48,17 @@ public class QuestionsController : ControllerBase
         await _mediator.Send(new DeleteQuestionCommandRequest(id));
 
         return NoContent();
+    }
+
+    [HttpPost("SubmitAnswers")]
+    public async Task<IActionResult> SubmitAnswers(SubmitAnswersCommandRequest request)
+    {
+        var response = await _mediator.Send(request);
+        
+        if (response.IsSuccess)
+            return Ok(response);
+        else
+            return BadRequest(response);
     }
 
 }

@@ -16,10 +16,12 @@ namespace CodeApp.Persistence.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder); 
         }
-        public DbSet<Language> Languages { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answers { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Avatar> Avatars { get; set; }
+        public DbSet<Language> Languages { get; set; } = null!;
+        public DbSet<Question> Questions { get; set; } = null!;
+        public DbSet<Answer> Answers { get; set; } = null!;
+        public DbSet<Subject> Subjects { get; set; } = null!;
+        public DbSet<Avatar> Avatars { get; set; } = null!;
+        public DbSet<StepQuestion> StepQuestions { get; set; } = null!;
+        public DbSet<AppUserStepQuestion> AppUserStepQuestions { get; set; } = null!;
     }
 }

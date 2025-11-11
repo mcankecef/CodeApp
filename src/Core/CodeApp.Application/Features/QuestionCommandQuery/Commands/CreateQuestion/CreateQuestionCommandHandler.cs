@@ -47,6 +47,7 @@ public class
                 Title = request.StepQuestion.Title,
                 StepNumber = request.StepQuestion.StepNumber,
                 LanguageId = request.LanguageId,
+                Status = StatusType.Passive
             };
 
             await _stepQuestionWriteRepository.CreateAsync(stepQuestion);
@@ -61,7 +62,7 @@ public class
             Name = request.Name,
             Score = request.Score,
             StepQuestionId = stepQuestion.Id,
-            Status = StatusType.Active
+            Status = StatusType.Passive
         };
 
         await _questionWriteRepository.CreateAsync(createdQuestion);

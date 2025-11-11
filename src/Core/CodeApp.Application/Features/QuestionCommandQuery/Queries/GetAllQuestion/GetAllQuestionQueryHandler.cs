@@ -23,7 +23,8 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Queries.GetAllQuesti
         public async Task<BaseResponse<List<GetAllQuestionDto>>> Handle(GetAllQuestionQueryRequest request, CancellationToken cancellationToken)
         {
             var questions = await _questionReadRepository.Queryable()
-                .Include(q => q.Answers).Include(q => q.Language)
+                .Include(q => q.Answers)
+                .Include(q => q.Language)
                 .Where(q => q.Status == StatusType.Active)
                 .Where(q => q.LanguageId == request.LanguageId)
                 .Where(q => (int)q.Level == request.QuestionLevel)

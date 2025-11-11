@@ -4,10 +4,12 @@ using CodeApp.Application.Features.UserCommandQuery.Commands.UpdateUser;
 using CodeApp.Application.Features.UserCommandQuery.Commands.UpdateUserAvatar;
 using CodeApp.Application.Features.UserCommandQuery.Queries.GetAllUser;
 using CodeApp.Application.Features.UserCommandQuery.Queries.GetByUserId;
+using CodeApp.Application.Features.UserCommandQuery.Queries.GetLanguageLeaderboard;
 using CodeApp.Application.Features.UserCommandQuery.Queries.GetUserScore;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CodeApp.WebAPI.Controllers;
 [Route("api/[controller]")]
@@ -58,4 +60,13 @@ public class UsersController : ControllerBase
     [HttpPut, Route("updateAvatar")]
     public async Task<IActionResult> UpdateAvatar(UpdateUserAvatarCommandRequest request)
         => Ok(await _mediator.Send(request));
+
+    [HttpGet, Route("leaderboard/{languageId}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetLanguageLeaderboard(Guid languageId, [FromQuery] int page = 1, [FromQuery] int pageSize = 5)
+    {
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        var request = new GetScoreLeaderboardQueryRequest(languageId, page, pageSize, currentUserId);
+        return Ok(await _mediator.Send(request));
+    }
 }

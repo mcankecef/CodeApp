@@ -2,8 +2,8 @@
 {
     public enum QuestionLevel
     {
-        Basic,
-        Indermediate,
+        Beginner,
+        Intermediate,
         Advanced
     }
 }

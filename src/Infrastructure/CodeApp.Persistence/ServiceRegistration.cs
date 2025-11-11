@@ -1,8 +1,12 @@
 ﻿using CodeApp.Application.Abstractions;
 using CodeApp.Application.Repositories;
+using CodeApp.Application.Repositories.AppUserStepQuestion;
+using CodeApp.Application.Repositories.StepQuestion;
 using CodeApp.Domain.Entities.Identity;
 using CodeApp.Persistence.Contexts;
 using CodeApp.Persistence.Repositories;
+using CodeApp.Persistence.Repositories.AppUserStepQuestion;
+using CodeApp.Persistence.Repositories.StepQuestion;
 using CodeApp.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +36,8 @@ namespace CodeApp.Persistence
 
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IReadRepository<>), typeof(ReadRepository<>));
+            services.AddTransient(typeof(IWriteRepository<>), typeof(WriteRepository<>));
 
             services.AddTransient<ILanguageReadRepository, LanguageReadRepository>();
             services.AddTransient<ILanguageWriteRepository, LanguageWriteRepository>();
@@ -47,6 +53,11 @@ namespace CodeApp.Persistence
 
             services.AddTransient<IAvatarReadRepository, AvatarReadRepository>();
             services.AddTransient<IAvatarWriteRepository, AvatarWriteRepository>();
+
+            services.AddTransient<IStepQuestionReadRepository, StepQuestionReadRepository>();
+            services.AddTransient<IStepQuestionWriteRepository, StepQuestionWriteRepository>();
+            services.AddTransient<IAppUserStepQuestionReadRepository, AppUserStepQuestionReadRepository>();
+            services.AddTransient<IAppUserStepQuestionWriteRepository, AppUserStepQuestionWriteRepository>();
 
             services.AddTransient<IUserService, UserService>();
         }
