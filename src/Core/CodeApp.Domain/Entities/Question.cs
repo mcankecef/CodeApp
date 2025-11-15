@@ -22,7 +22,7 @@ namespace CodeApp.Domain.Entities
         public ICollection<Answer> Answers { get; set; }
         public StatusType Status { get; set; }
         
-        public Guid StepQuestionId { get; set; } 
-        public StepQuestion StepQuestion { get; set; }
+        public Guid? StepQuestionId { get; set; } 
+        public StepQuestion? StepQuestion { get; set; }
     }
 }

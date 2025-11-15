@@ -62,7 +62,6 @@ public class UsersController : ControllerBase
         => Ok(await _mediator.Send(request));
 
     [HttpGet, Route("leaderboard/{languageId}")]
-    [AllowAnonymous]
     public async Task<IActionResult> GetLanguageLeaderboard(Guid languageId, [FromQuery] int page = 1, [FromQuery] int pageSize = 5)
     {
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;

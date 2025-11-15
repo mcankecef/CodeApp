@@ -16,7 +16,7 @@ public class AvatarsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
-    => Ok(await _mediator.Send(new GetAllAvatarQueryRequest()));
+        => Ok(await _mediator.Send(new GetAllAvatarQueryRequest()));
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateAvatarCommandRequest request)

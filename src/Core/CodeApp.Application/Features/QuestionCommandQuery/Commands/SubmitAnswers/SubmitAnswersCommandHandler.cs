@@ -37,21 +37,14 @@ public class SubmitAnswersCommandHandler : IRequestHandler<SubmitAnswersCommandR
         try
         {
             var userProgress = await _appUserStepQuestionReadRepository
-            .Queryable()
-            .Include(x=>x.AppUser)
-            .FirstOrDefaultAsync(x => x.AppUserId == request.AppUserId && x.LanguageId == request.LanguageId, cancellationToken);
-
+                .Queryable()
+                .Include(x => x.AppUser)
+                .FirstOrDefaultAsync(x => x.AppUserId == request.AppUserId
+                 && x.LanguageId == request.LanguageId, cancellationToken);
+                 
             if (userProgress == null)
             {
-                userProgress = new Domain.Entities.AppUserStepQuestion
-                {
-                    Id = Guid.NewGuid(),
-                    AppUserId = request.AppUserId,
-                    LanguageId = request.LanguageId,
-                    StepQuestionId = request.StepQuestionId,
-                    CurrentStepNumber = 1
-                };
-                await _appUserStepQuestionWriteRepository.CreateAsync(userProgress);
+                return new BaseResponse<SubmitAnswersResponseDto>("User progress not found.", false, new SubmitAnswersResponseDto());
             }
 
             var currentStep = await _stepQuestionReadRepository.Queryable()
@@ -60,11 +53,11 @@ public class SubmitAnswersCommandHandler : IRequestHandler<SubmitAnswersCommandR
             if (currentStep == null)
                 return new BaseResponse<SubmitAnswersResponseDto>("Step not found.", false, new SubmitAnswersResponseDto());
 
-            if (currentStep.StepNumber > userProgress.CurrentStepNumber)
+            if (currentStep.StepNumber > userProgress?.CurrentStepNumber)
                 return new BaseResponse<SubmitAnswersResponseDto>("You do not have access to this step yet.", false, new SubmitAnswersResponseDto());
 
             var questions = await _questionReadRepository.Queryable()
-                .Where(q => q.StepQuestionId == request.StepQuestionId && q.Status == StatusType.Active)
+                .Where(q => q.StepQuestionId == request.StepQuestionId)
                 .ToListAsync(cancellationToken);
 
             if (!questions.Any())
@@ -93,19 +86,19 @@ public class SubmitAnswersCommandHandler : IRequestHandler<SubmitAnswersCommandR
                 }
             }
 
-            userProgress.Score += totalScore;
-
-            await _userService.UpdateUserScore(new Dtos.User.UserScoreDto
-            {
-                UserId = userProgress.AppUserId.ToString(),
-                Score = totalScore
-            });
-
             bool stepCompleted = correctAnswers == totalQuestions;
-            int newStepNumber = userProgress.CurrentStepNumber;
 
             if (stepCompleted)
             {
+                int newStepNumber = userProgress!.CurrentStepNumber;
+                userProgress!.Score += totalScore;
+
+                await _userService.UpdateUserScore(new Dtos.User.UserScoreDto
+                {
+                    UserId = userProgress.AppUserId.ToString(),
+                    Score = totalScore
+                });
+
                 var nextStep = await _stepQuestionReadRepository.Queryable()
                     .Where(x => x.LanguageId == request.LanguageId && x.StepNumber == currentStep.StepNumber + 1)
                     .FirstOrDefaultAsync(cancellationToken);
@@ -115,29 +108,35 @@ public class SubmitAnswersCommandHandler : IRequestHandler<SubmitAnswersCommandR
                     newStepNumber = currentStep.StepNumber + 1;
                     userProgress.CurrentStepNumber = newStepNumber;
                     userProgress.StepQuestionId = nextStep.Id;
-                    _appUserStepQuestionWriteRepository.Update(userProgress);
                 }
+
+                _appUserStepQuestionWriteRepository.Update(userProgress);
+
+                var response = new SubmitAnswersResponseDto
+                {
+                    TotalScore = totalScore,
+                    CorrectAnswers = correctAnswers,
+                    TotalQuestions = totalQuestions,
+                    StepCompleted = stepCompleted,
+                    NewStepNumber = newStepNumber
+                };
+
+                return new BaseResponse<SubmitAnswersResponseDto>($"Step {currentStep.StepNumber} completed.", true, response);
             }
 
-            await _appUserStepQuestionWriteRepository.SaveAsync();
-
-            var response = new SubmitAnswersResponseDto
+            return new BaseResponse<SubmitAnswersResponseDto>($"Step {currentStep.StepNumber} not completed. Try again.", false, new SubmitAnswersResponseDto
             {
-                TotalScore = totalScore,
+                TotalScore = userProgress!.AppUser.Score,
                 CorrectAnswers = correctAnswers,
                 TotalQuestions = totalQuestions,
                 StepCompleted = stepCompleted,
-                NewStepNumber = newStepNumber,
-                Message = stepCompleted 
-                    ? $"Congratulations! You answered {correctAnswers}/{totalQuestions} questions correctly and completed step {currentStep.StepNumber}. You earned {totalScore} points."
-                    : $"You answered {correctAnswers}/{totalQuestions} questions correctly. You earned {totalScore} points. To advance to the next step, you must answer all questions correctly."
-            };
+                NewStepNumber = userProgress!.CurrentStepNumber
+            });
 
-            return new BaseResponse<SubmitAnswersResponseDto>("Answers evaluated successfully.", true, response);
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            return new BaseResponse<SubmitAnswersResponseDto>($"An error occurred: {ex.Message}", false, new SubmitAnswersResponseDto());
+            return new BaseResponse<SubmitAnswersResponseDto>($"An error occurred: {exception.Message}", false, new SubmitAnswersResponseDto());
         }
     }
 }

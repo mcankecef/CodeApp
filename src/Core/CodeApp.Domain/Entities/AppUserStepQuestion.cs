@@ -4,7 +4,7 @@ namespace CodeApp.Domain.Entities;
 
 public class AppUserStepQuestion : BaseEntity
 {
-    public Guid AppUserId { get; set; }
+    public string AppUserId { get; set; } = null!;
     public Guid LanguageId { get; set; }
     public Guid StepQuestionId { get; set; }
     public int CurrentStepNumber { get; set; } = 1;

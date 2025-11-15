@@ -6,7 +6,7 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.SubmitAnswe
 
 public class SubmitAnswersCommandRequest : IRequest<BaseResponse<SubmitAnswersResponseDto>>
 {
-    public Guid AppUserId { get; set; }
+    public string AppUserId { get; set; } = null!;
     public Guid StepQuestionId { get; set; }
     public Guid LanguageId { get; set; }
     public List<SubmitAnswerDto> Answers { get; set; } = new();

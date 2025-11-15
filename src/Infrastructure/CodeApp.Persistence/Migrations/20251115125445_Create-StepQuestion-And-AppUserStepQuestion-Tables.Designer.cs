@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeApp.Persistence.Migrations
 {
     [DbContext(typeof(CodeAppDbContext))]
-    [Migration("20251111190556_Add new tables")]
-    partial class Addnewtables
+    [Migration("20251115125445_Create-StepQuestion-And-AppUserStepQuestion-Tables")]
+    partial class CreateStepQuestionAndAppUserStepQuestionTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,10 +59,8 @@ namespace CodeApp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AppUserId1")
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -85,7 +83,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId1");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("StepQuestionId");
 
@@ -490,7 +488,9 @@ namespace CodeApp.Persistence.Migrations
                 {
                     b.HasOne("CodeApp.Domain.Entities.Identity.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppUserId1");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CodeApp.Domain.Entities.StepQuestion", "StepQuestion")
                         .WithMany()

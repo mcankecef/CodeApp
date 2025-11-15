@@ -2,6 +2,7 @@ using CodeApp.Application.Dtos.StepQuestion;
 using CodeApp.Application.Repositories.AppUserStepQuestion;
 using CodeApp.Application.Repositories.StepQuestion;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,13 +11,16 @@ namespace CodeApp.Application.Features.StepQuestionCommandQuery.Queries.GetStepQ
 public class GetStepQuestionsQueryHandler : IRequestHandler<GetStepQuestionsQueryRequest, BaseResponse<List<StepQuestionDto>>>
 {
     private readonly IAppUserStepQuestionReadRepository _appUserStepQuestionReadRepository;
+    private readonly IAppUserStepQuestionWriteRepository _appUserStepQuestionWriteRepository;
     private readonly IStepQuestionReadRepository _stepQuestionReadRepository;
 
     public GetStepQuestionsQueryHandler(
         IAppUserStepQuestionReadRepository appUserStepQuestionReadRepository,
+        IAppUserStepQuestionWriteRepository appUserStepQuestionWriteRepository,
         IStepQuestionReadRepository stepQuestionReadRepository)
     {
         _appUserStepQuestionReadRepository = appUserStepQuestionReadRepository;
+        _appUserStepQuestionWriteRepository = appUserStepQuestionWriteRepository;
         _stepQuestionReadRepository = stepQuestionReadRepository;
     }
 
@@ -25,7 +29,28 @@ public class GetStepQuestionsQueryHandler : IRequestHandler<GetStepQuestionsQuer
         var userProgress = await _appUserStepQuestionReadRepository.Queryable()
             .FirstOrDefaultAsync(x => x.AppUserId == request.AppUserId && x.LanguageId == request.LanguageId, cancellationToken);
 
-        var currentStep = userProgress?.CurrentStepNumber ?? 1;
+        if (userProgress == null)
+        {
+            var firstStep = await _stepQuestionReadRepository.Queryable()
+                .Where(x => x.LanguageId == request.LanguageId)
+                .OrderBy(x => x.StepNumber)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (firstStep != null)
+            {
+                userProgress = new AppUserStepQuestion
+                {
+                    Id = Guid.NewGuid(),
+                    AppUserId = request.AppUserId,
+                    LanguageId = request.LanguageId,
+                    StepQuestionId = firstStep.Id,
+                    CurrentStepNumber = 1,
+                    Score = 0
+                };
+
+                await _appUserStepQuestionWriteRepository.CreateAsync(userProgress);
+            }
+        }
 
         var steps = await _stepQuestionReadRepository.Queryable()
             .Where(x => x.LanguageId == request.LanguageId)
@@ -37,8 +62,8 @@ public class GetStepQuestionsQueryHandler : IRequestHandler<GetStepQuestionsQuer
             Id = step.Id,
             Title = step.Title,
             StepNumber = step.StepNumber,
-            IsLocked = step.StepNumber > currentStep,
-            IsCurrentStep = step.StepNumber == currentStep,
+            IsLocked = step.StepNumber > userProgress?.CurrentStepNumber,
+            IsCurrentStep = step.StepNumber == userProgress?.CurrentStepNumber,
         }).ToList();
 
         return new BaseResponse<List<StepQuestionDto>>("", true, dtos);

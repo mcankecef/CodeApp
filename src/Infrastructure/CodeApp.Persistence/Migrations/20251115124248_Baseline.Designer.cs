@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeApp.Persistence.Migrations
 {
     [DbContext(typeof(CodeAppDbContext))]
-    [Migration("20230319123145_added-status-type")]
-    partial class addedstatustype
+    [Migration("20251115124248_Baseline")]
+    partial class Baseline
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace CodeApp.Persistence.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -51,6 +51,43 @@ namespace CodeApp.Persistence.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("CodeApp.Domain.Entities.AppUserStepQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrentStepNumber")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LanguageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StepQuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("StepQuestionId");
+
+                    b.ToTable("AppUserStepQuestions");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Avatar", b =>
@@ -68,6 +105,9 @@ namespace CodeApp.Persistence.Migrations
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -153,6 +193,12 @@ namespace CodeApp.Persistence.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefreshTokenEndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
@@ -198,7 +244,7 @@ namespace CodeApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -239,8 +285,11 @@ namespace CodeApp.Persistence.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("StepQuestionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -249,7 +298,39 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasIndex("LanguageId");
 
+                    b.HasIndex("StepQuestionId");
+
                     b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("CodeApp.Domain.Entities.StepQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("LanguageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StepQuestions");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Subject", b =>
@@ -268,7 +349,7 @@ namespace CodeApp.Persistence.Migrations
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -403,6 +484,25 @@ namespace CodeApp.Persistence.Migrations
                     b.Navigation("Question");
                 });
 
+            modelBuilder.Entity("CodeApp.Domain.Entities.AppUserStepQuestion", b =>
+                {
+                    b.HasOne("CodeApp.Domain.Entities.Identity.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodeApp.Domain.Entities.StepQuestion", "StepQuestion")
+                        .WithMany()
+                        .HasForeignKey("StepQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("StepQuestion");
+                });
+
             modelBuilder.Entity("CodeApp.Domain.Entities.Identity.AppUser", b =>
                 {
                     b.HasOne("CodeApp.Domain.Entities.Avatar", "Avatar")
@@ -420,7 +520,15 @@ namespace CodeApp.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CodeApp.Domain.Entities.StepQuestion", "StepQuestion")
+                        .WithMany("Questions")
+                        .HasForeignKey("StepQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Language");
+
+                    b.Navigation("StepQuestion");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Subject", b =>
@@ -500,6 +608,11 @@ namespace CodeApp.Persistence.Migrations
             modelBuilder.Entity("CodeApp.Domain.Entities.Question", b =>
                 {
                     b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("CodeApp.Domain.Entities.StepQuestion", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

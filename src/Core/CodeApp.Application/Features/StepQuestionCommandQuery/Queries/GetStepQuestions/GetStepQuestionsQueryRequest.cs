@@ -7,5 +7,5 @@ namespace CodeApp.Application.Features.StepQuestionCommandQuery.Queries.GetStepQ
 public class GetStepQuestionsQueryRequest : IRequest<BaseResponse<List<StepQuestionDto>>>
 {
     public Guid LanguageId { get; set; }
-    public Guid AppUserId { get; set; }
+    public string AppUserId { get; set; } = null!;
 }

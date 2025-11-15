@@ -30,7 +30,8 @@ public class GetQuestionsByStepQueryHandler : IRequestHandler<GetQuestionsByStep
         CancellationToken cancellationToken)
     {
         var userProgress = await _appUserStepQuestionReadRepository.Queryable()
-            .FirstOrDefaultAsync(x => x.AppUserId == request.AppUserId && x.LanguageId == request.LanguageId,
+            .FirstOrDefaultAsync(x => x.AppUserId == request.AppUserId 
+                                    && x.LanguageId == request.LanguageId,
                 cancellationToken);
 
         if (userProgress is null)
@@ -43,13 +44,13 @@ public class GetQuestionsByStepQueryHandler : IRequestHandler<GetQuestionsByStep
             throw new ArgumentException("Step bulunamadı.");
 
         if (step.StepNumber > userProgress.CurrentStepNumber)
-            throw new UnauthorizedAccessException("Bu adım kilitli.");
+            throw new UnauthorizedAccessException("This step is locked for the user.");
 
         var questions = await _questionReadRepository.Queryable()
             .Include(q => q.Answers)
             .Include(q => q.Language)
             .Where(q => q.StepQuestionId == step.Id)
-            .Where(q => q.Status == StatusType.Active)
+            //.Where(q => q.Status == StatusType.Active)
             .ToListAsync(cancellationToken);
 
         var dto = new GetStepQuestionsResponseDto
