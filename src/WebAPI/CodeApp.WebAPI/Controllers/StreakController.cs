@@ -35,7 +35,7 @@ namespace CodeApp.WebAPI.Controllers
         }
 
         [HttpGet("User/{userId}")]
-        public async Task<IActionResult> GetUserStreak([FromQuery] string userId)
+        public async Task<IActionResult> GetUserStreak([FromRoute] string userId)
         {
             var query = new GetUserStreakQuery(userId);
             var result = await _mediator.Send(query);
