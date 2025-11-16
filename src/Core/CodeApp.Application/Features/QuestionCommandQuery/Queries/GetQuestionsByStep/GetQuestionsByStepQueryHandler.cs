@@ -50,7 +50,7 @@ public class GetQuestionsByStepQueryHandler : IRequestHandler<GetQuestionsByStep
             .Include(q => q.Answers)
             .Include(q => q.Language)
             .Where(q => q.StepQuestionId == step.Id)
-            //.Where(q => q.Status == StatusType.Active)
+            .Where(q => q.Status == StatusType.Active)
             .ToListAsync(cancellationToken);
 
         var dto = new GetStepQuestionsResponseDto

@@ -1,6 +1,7 @@
 ﻿using CodeApp.Application.Abstractions;
 using CodeApp.Application.Dtos.Token;
 using CodeApp.Application.Exceptions;
+using CodeApp.Application.Repositories.UserStreak;
 using CodeApp.Application.Token;
 using CodeApp.Application.Wrapper;
 using CodeApp.Domain.Entities.Identity;
@@ -20,14 +21,22 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
         private readonly ITokenHandler _tokenHandler;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserService _userService;
+        private readonly IUserStreakReadRepository _userStreakReadRepository;
 
-        public LoginUserCommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenHandler tokenHandler, IHttpContextAccessor httpContextAccessor, IUserService userService)
+        public LoginUserCommandHandler(
+            UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager, 
+            ITokenHandler tokenHandler, 
+            IHttpContextAccessor httpContextAccessor, 
+            IUserService userService,
+            IUserStreakReadRepository userStreakReadRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenHandler = tokenHandler;
             _httpContextAccessor = httpContextAccessor;
             _userService = userService;
+            _userStreakReadRepository = userStreakReadRepository;
         }
 
         public async Task<BaseResponse<TokenDto>> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
@@ -58,11 +67,16 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
                 var token = _tokenHandler.CreateAccessToken(7, authClaims);
 
                 token.UserId = user.Id;
-                token.ImageUrl = user?.Avatar?.ImageUrl;
+                token.ImageUrl = user?.Avatar?.ImageUrl ?? string.Empty;
                 token.Score = user.Score;
-                token.UserName = user.UserName;
-                token.Email = user.Email;
+                token.UserName = user.UserName ?? string.Empty;
+                token.Email = user.Email ?? string.Empty;
                 token.FullName = user.FullName;
+                
+                // Streak Information
+                var userStreak = await _userStreakReadRepository.GetByFilterAsync(x => x.UserId == user.Id);
+                token.CurrentStreak = userStreak?.CurrentStreak ?? 0;
+                token.LongestStreak = userStreak?.LongestStreak ?? 0;
 
                 var refreshTokenLifeTime = token.Expiration.AddHours(1);
 

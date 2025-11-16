@@ -6,10 +6,11 @@ namespace CodeApp.Application.Dtos.Question
 {
     public class CreateQuestionDto
     {
-        public string Name { get; set; }
-        public string CorrectAnswer { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string CorrectAnswer { get; set; } = string.Empty;
         public int Score { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty; 
         public QuestionLevel Level { get; set; }
         public Guid LanguageId { get; set; }
         public List<string>? Answers { get; set; }

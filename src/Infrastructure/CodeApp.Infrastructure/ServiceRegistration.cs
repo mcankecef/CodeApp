@@ -1,4 +1,6 @@
-﻿using CodeApp.Application.Token;
+﻿using CodeApp.Application.Abstractions;
+using CodeApp.Application.Token;
+using CodeApp.Infrastructure.Services;
 using CodeApp.Infrastructure.Services.Token;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +12,7 @@ namespace CodeApp.Infrastructure
         public static void AddInfrastructureRegistration(this IServiceCollection services)
         {
             services.AddScoped<ITokenHandler,TokenHandler>();
+            services.AddScoped<IStreakService, StreakService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }

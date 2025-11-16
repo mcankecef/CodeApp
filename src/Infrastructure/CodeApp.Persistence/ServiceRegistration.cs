@@ -2,11 +2,13 @@
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Repositories.AppUserStepQuestion;
 using CodeApp.Application.Repositories.StepQuestion;
+using CodeApp.Application.Repositories.UserStreak;
 using CodeApp.Domain.Entities.Identity;
 using CodeApp.Persistence.Contexts;
 using CodeApp.Persistence.Repositories;
 using CodeApp.Persistence.Repositories.AppUserStepQuestion;
 using CodeApp.Persistence.Repositories.StepQuestion;
+using CodeApp.Persistence.Repositories.UserStreak;
 using CodeApp.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,6 +60,9 @@ namespace CodeApp.Persistence
             services.AddTransient<IStepQuestionWriteRepository, StepQuestionWriteRepository>();
             services.AddTransient<IAppUserStepQuestionReadRepository, AppUserStepQuestionReadRepository>();
             services.AddTransient<IAppUserStepQuestionWriteRepository, AppUserStepQuestionWriteRepository>();
+
+            services.AddTransient<IUserStreakReadRepository, UserStreakReadRepository>();
+            services.AddTransient<IUserStreakWriteRepository, UserStreakWriteRepository>();
 
             services.AddTransient<IUserService, UserService>();
         }

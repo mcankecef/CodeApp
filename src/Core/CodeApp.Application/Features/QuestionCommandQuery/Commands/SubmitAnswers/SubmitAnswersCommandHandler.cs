@@ -17,19 +17,22 @@ public class SubmitAnswersCommandHandler : IRequestHandler<SubmitAnswersCommandR
     private readonly IStepQuestionReadRepository _stepQuestionReadRepository;
     private readonly IAppUserStepQuestionReadRepository _appUserStepQuestionReadRepository;
     private readonly IAppUserStepQuestionWriteRepository _appUserStepQuestionWriteRepository;
+    private readonly IStreakService _streakService;
 
     public SubmitAnswersCommandHandler(
         IQuestionReadRepository questionReadRepository,
         IStepQuestionReadRepository stepQuestionReadRepository,
         IAppUserStepQuestionReadRepository appUserStepQuestionReadRepository,
         IAppUserStepQuestionWriteRepository appUserStepQuestionWriteRepository,
-        IUserService userService)
+        IUserService userService,
+        IStreakService streakService)
     {
         _questionReadRepository = questionReadRepository;
         _stepQuestionReadRepository = stepQuestionReadRepository;
         _appUserStepQuestionReadRepository = appUserStepQuestionReadRepository;
         _appUserStepQuestionWriteRepository = appUserStepQuestionWriteRepository;
         _userService = userService;
+        _streakService = streakService;
     }
 
     public async Task<BaseResponse<SubmitAnswersResponseDto>> Handle(SubmitAnswersCommandRequest request, CancellationToken cancellationToken)
@@ -111,6 +114,8 @@ public class SubmitAnswersCommandHandler : IRequestHandler<SubmitAnswersCommandR
                 }
 
                 _appUserStepQuestionWriteRepository.Update(userProgress);
+
+                await _streakService.UpdateStreakAsync(userProgress.AppUserId);
 
                 var response = new SubmitAnswersResponseDto
                 {

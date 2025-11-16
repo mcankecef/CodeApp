@@ -23,5 +23,6 @@ namespace CodeApp.Persistence.Contexts
         public DbSet<Avatar> Avatars { get; set; } = null!;
         public DbSet<StepQuestion> StepQuestions { get; set; } = null!;
         public DbSet<AppUserStepQuestion> AppUserStepQuestions { get; set; } = null!;
+        public DbSet<UserStreak> UserStreaks { get; set; } = null!;
     }
 }
