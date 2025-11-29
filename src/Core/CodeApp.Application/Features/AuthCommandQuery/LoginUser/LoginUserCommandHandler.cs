@@ -57,23 +57,33 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
 
             if (result.Succeeded)
             {
+                // Kullanıcının rollerini al
+                var userRoles = await _userManager.GetRolesAsync(user);
+                
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name,user.FullName),
-                    new Claim(ClaimTypes.Email,user.Email),
-                    new Claim(ClaimTypes.NameIdentifier,user.Id),
-                    new Claim(JwtRegisteredClaimNames.Jti,new Guid().ToString()),
+                    new Claim(ClaimTypes.Name, user.FullName),
+                    new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
-                var token = _tokenHandler.CreateAccessToken(7, authClaims);
+                
+                // Rolleri claim olarak ekle
+                foreach (var role in userRoles)
+                {
+                    authClaims.Add(new Claim(ClaimTypes.Role, role));
+                }
+                
+                var token = _tokenHandler.CreateAccessToken(7, authClaims, request.RememberMe);
 
                 token.UserId = user.Id;
-                token.ImageUrl = user?.Avatar?.ImageUrl ?? string.Empty;
+                token.ImageUrl = user.Avatar?.ImageUrl ?? string.Empty;
                 token.Score = user.Score;
                 token.UserName = user.UserName ?? string.Empty;
                 token.Email = user.Email ?? string.Empty;
                 token.FullName = user.FullName;
-                
-                // Streak Information
+                token.Role = userRoles.FirstOrDefault() ?? string.Empty;
+
                 var userStreak = await _userStreakReadRepository.GetByFilterAsync(x => x.UserId == user.Id);
                 token.CurrentStreak = userStreak?.CurrentStreak ?? 0;
                 token.LongestStreak = userStreak?.LongestStreak ?? 0;
@@ -81,6 +91,9 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
                 var refreshTokenLifeTime = token.Expiration.AddHours(1);
 
                 await _userService.UpdateRefreshToken(user, token.RefreshToken, refreshTokenLifeTime);
+                
+                user.LastLoggedSession = DateTime.UtcNow;
+                await _userManager.UpdateAsync(user);
 
                 return new BaseResponse<TokenDto>("Succesfully logged into the application", true, token);
             }

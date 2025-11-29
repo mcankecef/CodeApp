@@ -1,38 +1,34 @@
-using CodeApp.Application.Abstractions;
 using CodeApp.Application.Dtos.User;
 using CodeApp.Application.Wrapper;
+using CodeApp.Domain.Entities.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeApp.Application.Features.UserCommandQuery.Queries.GetLanguageLeaderboard
 {
     public class GetScoreLeaderboardQueryHandler : IRequestHandler<GetScoreLeaderboardQueryRequest, BaseResponse<ScoreLeaderboardResponseDto>>
     {
-        private readonly IUserService _userService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public GetScoreLeaderboardQueryHandler(IUserService userService)
+        public GetScoreLeaderboardQueryHandler(UserManager<AppUser> userManager)
         {
-            _userService = userService;
+            _userManager = userManager;
         }
 
         public async Task<BaseResponse<ScoreLeaderboardResponseDto>> Handle(GetScoreLeaderboardQueryRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                var allUsers = await _userService.GetAllUser();
+                var allUsers = await _userManager.Users.ToListAsync(cancellationToken);
                 
-                var usersWithScores = new List<UserScoreRankDto>();
-                
-                foreach (var user in allUsers)
+                var usersWithScores = allUsers.Select(user => new UserScoreRankDto
                 {
-                    var userScore = await _userService.GetUserScore(user.Id);
-                    usersWithScores.Add(new UserScoreRankDto
-                    {
-                        UserId = Guid.Parse(user.Id),
-                        UserName = user.UserName,
-                        FullName = user.FullName,
-                        TotalScore = userScore
-                    });
-                }
+                    UserId = Guid.Parse(user.Id),
+                    UserName = user.UserName ?? "",
+                    FullName = user.FullName,
+                    TotalScore = user.Score
+                }).ToList();
 
                 var sortedUsers = usersWithScores
                     .OrderByDescending(x => x.TotalScore)

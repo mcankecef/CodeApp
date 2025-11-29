@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodeApp.WebAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Admin")]
+[Authorize]
 public class StepQuestionsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -15,6 +15,7 @@ public class StepQuestionsController : ControllerBase
     public StepQuestionsController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetStepQuestions(
         [FromQuery] Guid languageId,
         [FromQuery] string userId)
@@ -29,7 +30,8 @@ public class StepQuestionsController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("{stepQuestionId}/Questions")]
+    [HttpGet("{stepQuestionId}/questions")]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetQuestionsByStep(Guid stepQuestionId, [FromQuery] Guid languageId, [FromQuery] string appUserId)
     {
         var request = new GetQuestionsByStepQueryRequest

@@ -15,10 +15,8 @@ namespace CodeApp.Domain.Entities
         public Guid LanguageId { get; set; }
         public QuestionLevel Level { get; set; }
 
-        // A question must has one language
         public Language Language { get; set; }
 
-        // A question has more than one answer
         public ICollection<Answer> Answers { get; set; }
         public StatusType Status { get; set; }
         

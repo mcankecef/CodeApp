@@ -2,7 +2,8 @@
 {
     public class LoginUserDto
     {
-        public string UsernameOrEmail { get; set; }
-        public string Password { get; set; }
+        public required string UsernameOrEmail { get; set; }
+        public required string Password { get; set; }
+        public bool RememberMe { get; set; } = false;
     }
 }

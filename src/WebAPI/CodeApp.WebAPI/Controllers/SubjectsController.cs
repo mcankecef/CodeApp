@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodeApp.WebAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Admin")]
+[Authorize]
 public class SubjectsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -17,10 +17,12 @@ public class SubjectsController : ControllerBase
     public SubjectsController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetAll([FromQuery] Guid languageId)
         => Ok(await _mediator.Send(new GetAllSubjectQueryRequest(languageId)));
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var subject = await _mediator.Send(new GetSubjectByIdQueryRequest(id));
@@ -29,13 +31,16 @@ public class SubjectsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(CreateSubjectCommandRequest request)
     {
         var subject = await _mediator.Send(request);
 
         return StatusCode(201, subject);
     }
+    
     [HttpPatch("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteSubjectCommandRequest(id));

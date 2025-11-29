@@ -10,14 +10,11 @@ namespace CodeApp.Application.Mapping
     {
         public LanguageMapping()
         {
-            //Get
             CreateMap<Language, GetAllLanguageDto>().ReverseMap();
             
-            //Create
             CreateMap<Language, CreateLanguageDto>().ReverseMap();
             CreateMap<Language, CreateLanguageCommandRequest>().ReverseMap();
 
-            //Update
             CreateMap<Language, UpdateLanguageCommandRequest>().ReverseMap();
         }
     }

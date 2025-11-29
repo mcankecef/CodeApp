@@ -10,7 +10,6 @@ namespace CodeApp.Domain.Entities
         public DateTime? LastActivityDate { get; set; }
         public DateTime? StreakStartDate { get; set; }
         
-        // Navigation Properties
         public AppUser User { get; set; } = null!;
     }
 }

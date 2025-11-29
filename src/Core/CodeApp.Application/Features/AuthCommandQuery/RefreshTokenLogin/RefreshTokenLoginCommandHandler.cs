@@ -7,6 +7,8 @@ using CodeApp.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace CodeApp.Application.Features.AuthCommandQuery.RefreshToken
 {
@@ -25,11 +27,36 @@ namespace CodeApp.Application.Features.AuthCommandQuery.RefreshToken
 
         public async Task<BaseResponse<TokenDto>> Handle(RefreshTokenLoginCommandRequest request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == request.RefreshToken);
+            var user = await _userManager.Users
+                .Include(u => u.Avatar)
+                .FirstOrDefaultAsync(u => u.RefreshToken == request.RefreshToken);
 
             if (user != null && user?.RefreshTokenEndDate > DateTime.UtcNow)
             {
-                var token = _tokenHandler.CreateAccessToken(7, null);
+                var userRoles = await _userManager.GetRolesAsync(user);
+                
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.FullName),
+                    new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+                
+                foreach (var role in userRoles)
+                {
+                    authClaims.Add(new Claim(ClaimTypes.Role, role));
+                }
+                
+                var token = _tokenHandler.CreateAccessToken(7, authClaims, false);
+
+                token.UserId = user.Id;
+                token.ImageUrl = user.Avatar?.ImageUrl ?? string.Empty;
+                token.Score = user.Score;
+                token.UserName = user.UserName ?? string.Empty;
+                token.Email = user.Email ?? string.Empty;
+                token.FullName = user.FullName;
+                token.Role = userRoles.FirstOrDefault() ?? string.Empty;
 
                 var accessTokenLifeTime = token.Expiration.AddHours(1);
 

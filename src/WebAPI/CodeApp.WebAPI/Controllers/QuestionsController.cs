@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodeApp.WebAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Admin")]
+[Authorize]
 public class QuestionsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -19,10 +19,12 @@ public class QuestionsController : ControllerBase
     public QuestionsController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetAll([FromQuery] int questionLevel, Guid languageId)
     => Ok(await _mediator.Send(new GetAllQuestionQueryRequest(questionLevel, languageId)));
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(CreateQuestionCommandRequest request)
     {
         var response = await _mediator.Send(request);
@@ -31,6 +33,7 @@ public class QuestionsController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(UpdateQuestionCommandRequest request)
     {
         await _mediator.Send(request);
@@ -38,11 +41,13 @@ public class QuestionsController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet, Route("GetQuestionById/{id}")]
+    [HttpGet("get-question-by-id/{id}")]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetById(Guid id)
         => Ok(await _mediator.Send(new GetQuestionByIdQueryRequest(id)));
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteQuestionCommandRequest(id));
@@ -50,7 +55,8 @@ public class QuestionsController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("SubmitAnswers")]
+    [HttpPost("submit-answers")]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> SubmitAnswers(SubmitAnswersCommandRequest request)
     {
         var response = await _mediator.Send(request);

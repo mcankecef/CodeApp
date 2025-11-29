@@ -11,5 +11,8 @@ namespace CodeApp.Domain.Entities.Identity
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenEndDate { get; set; }
         public UserStreak? Streak { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime? LastLoggedSession { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

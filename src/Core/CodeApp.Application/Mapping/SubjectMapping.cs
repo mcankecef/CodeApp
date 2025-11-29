@@ -9,13 +9,10 @@ namespace CodeApp.Application.Mapping
     {
         public SubjectMapping()
         {
-            //GetAll
             CreateMap<Subject, GetAllSubjectDto>();
 
-            //GetById
             CreateMap<Subject, GetSubjectByIdDto>();
 
-            //Create
             CreateMap<CreateSubjectCommandRequest, Subject>();
             CreateMap<Subject, CreateSubjectDto>();
         }

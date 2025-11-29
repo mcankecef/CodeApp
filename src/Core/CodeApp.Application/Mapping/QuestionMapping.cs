@@ -9,15 +9,12 @@ namespace CodeApp.Application.Mapping
     {
         public QuestionMapping()
         {
-            //Get
             CreateMap<Question,GetAllQuestionDto>().ReverseMap();
 
-            //Create
             CreateMap<Question,CreateQuestionDto>().ReverseMap();
             CreateMap<Question,CreateQuestionCommandRequest>().ReverseMap();
             CreateMap<CreateQuestionDto,CreateQuestionCommandRequest>().ReverseMap();
 
-            //GetById
             CreateMap<Question,GetQuestionByIdDto>().ReverseMap();
 
         }

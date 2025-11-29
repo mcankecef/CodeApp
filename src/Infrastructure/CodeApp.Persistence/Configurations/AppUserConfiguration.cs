@@ -8,7 +8,6 @@ namespace CodeApp.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            // Avatar
             builder.HasOne(b => b.Avatar)
                 .WithMany(b => b.AppUsers)
                 .HasForeignKey(b => b.AvatarId)

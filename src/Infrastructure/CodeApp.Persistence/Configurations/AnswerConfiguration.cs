@@ -10,7 +10,6 @@ namespace CodeApp.Persistence.Configurations
         {
             builder.Property(x => x.AnswerName).IsRequired();
 
-            //Question
             builder.HasOne(x => x.Question)
                 .WithMany(x => x.Answers)
                 .HasForeignKey(x => x.QuestionId);

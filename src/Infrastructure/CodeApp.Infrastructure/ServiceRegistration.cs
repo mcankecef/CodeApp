@@ -1,4 +1,5 @@
 ﻿using CodeApp.Application.Abstractions;
+using CodeApp.Application.Abstractions.Services;
 using CodeApp.Application.Token;
 using CodeApp.Infrastructure.Services;
 using CodeApp.Infrastructure.Services.Token;
@@ -13,6 +14,7 @@ namespace CodeApp.Infrastructure
         {
             services.AddScoped<ITokenHandler,TokenHandler>();
             services.AddScoped<IStreakService, StreakService>();
+            services.AddScoped<IGoogleAuthService, GoogleAuthService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }

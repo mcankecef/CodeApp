@@ -11,7 +11,6 @@ namespace CodeApp.Application.Mapping
         public UserMapping()
         {
             CreateMap<AppUser, CreateUserDto>().ReverseMap();
-            CreateMap<AppUser, GetAllUserDto>().ReverseMap();
             CreateMap<UpdateScoreCommandRequest, UserScoreDto>().ReverseMap();
             CreateMap<AppUser, UserScoreDto>().ReverseMap();
             CreateMap<AppUser, GetUserByIdDto>().ReverseMap();

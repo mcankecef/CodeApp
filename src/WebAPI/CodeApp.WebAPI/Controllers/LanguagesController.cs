@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeApp.WebAPI.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Admin")]
+[Authorize]
 public class LanguagesController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -17,10 +18,12 @@ public class LanguagesController : ControllerBase
     public LanguagesController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetAll()
     => Ok(await _mediator.Send(new GetAllLanguageQueryRequest()));
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(CreateLanguageCommandRequest request)
     {
         var response = await _mediator.Send(request);
@@ -29,6 +32,7 @@ public class LanguagesController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(UpdateLanguageCommandRequest request)
     {
         await _mediator.Send(request);
@@ -37,6 +41,7 @@ public class LanguagesController : ControllerBase
     }
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteLanguageCommandRequest(id));

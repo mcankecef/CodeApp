@@ -1,5 +1,6 @@
 ﻿using CodeApp.Application.Features.AuthCommandQuery.LoginUser;
 using CodeApp.Application.Features.AuthCommandQuery.RefreshToken;
+using CodeApp.Application.Features.AuthCommandQuery.GoogleLogin;
 using CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser;
 using CodeApp.Application.Constants;
 using MediatR;
@@ -21,15 +22,26 @@ public class AuthController : ControllerBase
         _defaultAvatarId = Guid.Parse(_configuration[SettingNames.DefaultAvatarId]);
     }
 
-    [HttpPost, Route("Login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginUserCommandRequest loginUserCommandRequest)
         => Ok(await _mediator.Send(loginUserCommandRequest));
 
-    [HttpPost, Route("RefreshTokenLogin")]
+    [HttpPost("google-login")]
+    public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginCommandRequest request)
+    {
+        var response = await _mediator.Send(request);
+        
+        if (response.IsSuccess)
+            return Ok(response);
+            
+        return BadRequest(response);
+    }
+
+    [HttpPost("refresh-token-login")]
     public async Task<IActionResult> RefreshTokenLogin(RefreshTokenLoginCommandRequest refreshTokenLoginCommandRequest)
         => Ok(await _mediator.Send(refreshTokenLoginCommandRequest));
 
-    [HttpPost, Route("Register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(CreateUserCommandRequest createUserCommandRequest)
     {
         createUserCommandRequest.AvatarId = _defaultAvatarId;

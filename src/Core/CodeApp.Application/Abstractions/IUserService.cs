@@ -6,7 +6,6 @@ namespace CodeApp.Application.Abstractions
 {
     public interface IUserService
     {
-        Task<List<GetAllUserDto>> GetAllUser();
         Task<UserScoreDto> UpdateUserScore(UserScoreDto userScoreDto);
         Task<int> GetUserScore(string userId);
         Task<GetUserByIdDto> GetUserById(string userId);

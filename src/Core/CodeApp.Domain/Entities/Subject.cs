@@ -8,7 +8,6 @@ namespace CodeApp.Domain.Entities
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
 
-        // A question must has one language
         public Language Language { get; set; }
         public StatusType Status { get; set; }
 

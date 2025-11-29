@@ -12,9 +12,7 @@ namespace CodeApp.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
 
-        // A language has more than one question
         public ICollection<Question> Questions { get; set; }
-        // A language has more than one question
         public ICollection<Subject> Subjects { get; set; }
         public StatusType Status { get; set; }
     }

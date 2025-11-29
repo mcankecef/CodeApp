@@ -36,15 +36,6 @@ namespace CodeApp.Persistence.Services
             return response;
         }
 
-        public async Task<List<GetAllUserDto>> GetAllUser()
-        {
-            var users = await _userManager.Users.ToListAsync();
-
-            var dto = _mapper.Map<List<GetAllUserDto>>(users);
-
-            return dto;
-        }
-
         public async Task<int> GetUserScore(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

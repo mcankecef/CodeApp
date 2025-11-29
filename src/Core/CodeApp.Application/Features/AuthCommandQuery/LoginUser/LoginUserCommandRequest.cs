@@ -6,7 +6,8 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
 {
     public class LoginUserCommandRequest : IRequest<BaseResponse<TokenDto>>
     {
-        public string UsernameOrEmail { get; set; }
-        public string Password { get; set; }
+        public required string UsernameOrEmail { get; set; }
+        public required string Password { get; set; }
+        public bool RememberMe { get; set; } = false;
     }
 }

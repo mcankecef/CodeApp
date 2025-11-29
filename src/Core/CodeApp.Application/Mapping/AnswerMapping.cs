@@ -9,10 +9,8 @@ namespace CodeApp.Application.Mapping
     {
         public AnswerMapping()
         {
-            //Create
             CreateMap<Answer, CreateAnswerDto>().ReverseMap();
 
-            //Get
             CreateMap<Answer, GetAllAnswerDto>().ReverseMap();
             CreateMap<GetAllAnswerDto, GetAllAnswerDto>().ReverseMap();
             CreateMap<Answer, GetAllAnswerQueryRequest>().ReverseMap();

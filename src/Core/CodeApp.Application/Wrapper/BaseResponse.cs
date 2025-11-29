@@ -4,15 +4,17 @@
     {
         public BaseResponse()
         {
-
+            Message = string.Empty;
         }
         public BaseResponse(T data)
         {
             Data = data;
+            Message = string.Empty;
         }
         public BaseResponse(bool isSuccess)
         {
             IsSuccess = isSuccess;
+            Message = string.Empty;
         }
         public BaseResponse(string message, bool isSuccess)
         {
@@ -23,6 +25,7 @@
         {
             Data = data;
             IsSuccess = isSuccess;
+            Message = string.Empty;
         }
         public BaseResponse(string message, bool isSuccess, T data)
         {

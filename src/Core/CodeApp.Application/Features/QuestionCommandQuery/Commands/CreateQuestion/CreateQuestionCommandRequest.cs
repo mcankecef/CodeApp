@@ -18,6 +18,5 @@ namespace CodeApp.Application.Features.QuestionCommandQuery.Commands.CreateQuest
 
         public StepQuestionDto StepQuestion { get; set; }
         public List<string>? Answers { get; set; }
-        //public List<CreateAnswerDto>? Answer { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace CodeApp.Infrastructure.Services.Token
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public TokenDto CreateAccessToken(int day, List<Claim>? authClaims)
+        public TokenDto CreateAccessToken(int day, List<Claim>? authClaims, bool rememberMe = false)
         {
             var token = new TokenDto();
 
@@ -29,7 +29,11 @@ namespace CodeApp.Infrastructure.Services.Token
 
             var signinCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            token.Expiration = DateTime.UtcNow.AddDays(day);
+            var expirationMinutes = rememberMe 
+                ? int.Parse(_configuration["Token:RememberMeTokenExpiration"] ?? "43200")
+                : int.Parse(_configuration["Token:AccessTokenExpiration"] ?? "60");
+
+            token.Expiration = DateTime.UtcNow.AddMinutes(expirationMinutes);
 
             var securityToken = new JwtSecurityToken(
                 audience: _configuration["Token:Audience"],

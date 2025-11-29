@@ -48,7 +48,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.AppUserStepQuestion", b =>
@@ -85,7 +85,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasIndex("StepQuestionId");
 
-                    b.ToTable("AppUserStepQuestions");
+                    b.ToTable("AppUserStepQuestions", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Avatar", b =>
@@ -112,7 +112,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Avatars");
+                    b.ToTable("Avatars", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Identity.AppRole", b =>
@@ -157,6 +157,9 @@ namespace CodeApp.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -167,6 +170,9 @@ namespace CodeApp.Persistence.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -250,7 +256,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Question", b =>
@@ -298,7 +304,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasIndex("StepQuestionId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.StepQuestion", b =>
@@ -328,7 +334,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StepQuestions");
+                    b.ToTable("StepQuestions", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Subject", b =>
@@ -362,7 +368,7 @@ namespace CodeApp.Persistence.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.UserStreak", b =>
@@ -403,7 +409,7 @@ namespace CodeApp.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserStreaks");
+                    b.ToTable("UserStreaks", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

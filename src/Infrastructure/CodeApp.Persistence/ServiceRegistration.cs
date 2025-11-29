@@ -33,8 +33,22 @@ namespace CodeApp.Persistence
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
-                //options.User.AllowedUserNameCharacters 
             }).AddEntityFrameworkStores<CodeAppDbContext>();
+
+            // Disable cookie redirect for API
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+            });
 
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));

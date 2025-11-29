@@ -13,7 +13,7 @@ namespace CodeApp.Application
 
             services.AddAutoMapper(assembly);
 
-            services.AddMediatR(assembly);
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

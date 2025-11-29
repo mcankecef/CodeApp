@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CodeApp.WebAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Admin")]
+[Authorize]
 public class AnswersController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -16,10 +16,12 @@ public class AnswersController : ControllerBase
     public AnswersController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> GetAll()
         => Ok(await _mediator.Send(new GetAllAnswerQueryRequest()));
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(CreateAnswerCommandRequest request)
     {
         var response = await _mediator.Send(request);
@@ -28,6 +30,7 @@ public class AnswersController : ControllerBase
     }
     
     [HttpPatch("{questionId}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(Guid questionId)
     {
         await _mediator.Send(new DeleteAnswerCommandRequest(questionId));

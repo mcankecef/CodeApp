@@ -30,7 +30,6 @@ namespace CodeApp.Infrastructure.Services
             var today = DateTime.Today;
             var yesterday = today.AddDays(-1);
 
-            // Mevcut streak kaydını al veya oluştur
             var userStreak = await _userStreakReadRepository.GetByFilterAsync(x => x.UserId == userId);
             if (userStreak == null)
             {
@@ -96,12 +95,10 @@ namespace CodeApp.Infrastructure.Services
 
         public async Task<bool> CheckMilestoneAsync(string userId, int currentStreak)
         {
-            // Milestone streak değerleri
             var milestones = new int[] { 3, 7, 14, 30, 100, 365 };
             
             if (milestones.Contains(currentStreak))
             {
-                // TODO: Push to notification
                 return true;
             }
 

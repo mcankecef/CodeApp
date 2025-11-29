@@ -13,7 +13,6 @@ namespace CodeApp.Persistence.Configurations
             builder.Property(x=>x.Score).IsRequired();
             builder.Property(x=>x.LanguageId).IsRequired();
 
-            // Language
             builder.HasOne(x=>x.Language)
                 .WithMany(x=>x.Questions)
                 .HasForeignKey(x=>x.LanguageId);

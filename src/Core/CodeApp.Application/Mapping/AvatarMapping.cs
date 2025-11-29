@@ -9,10 +9,8 @@ namespace CodeApp.Application.Mapping
     {
         public AvatarMapping()
         {
-            //GetAll
             CreateMap<Avatar, GetAllAvatarDto>();
 
-            //Create
             CreateMap<CreateAvatarCommandRequest, Avatar>();
             CreateMap<Avatar,CreateAvatarDto>();
         }

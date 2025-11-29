@@ -11,7 +11,7 @@ namespace CodeApp.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Admin")]
+    [Authorize]
     public class StreakController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -21,7 +21,8 @@ namespace CodeApp.WebAPI.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("MyStreak")]
+        [HttpGet("my-streak")]
+        [Authorize(Roles = "Admin,Member")]
         public async Task<IActionResult> GetMyStreak()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -34,7 +35,8 @@ namespace CodeApp.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("User/{userId}")]
+        [HttpGet("user/{userId}")]
+        [Authorize(Roles = "Admin,Member")]
         public async Task<IActionResult> GetUserStreak([FromRoute] string userId)
         {
             var query = new GetUserStreakQuery(userId);
