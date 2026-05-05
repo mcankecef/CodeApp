@@ -9,6 +9,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuredOrigins = builder.Configuration["Cors:AllowedOrigins"];
+var allowedOrigins = !string.IsNullOrWhiteSpace(configuredOrigins)
+    ? configuredOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    : builder.Environment.IsDevelopment()
+        ? new[] { "http://localhost:3000" }
+        : Array.Empty<string>();
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationRegistration();
@@ -17,6 +23,19 @@ builder.Services.AddPersistenceRegistration(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ClientCors", policy =>
+    {
+        if (allowedOrigins.Length > 0)
+        {
+            policy.WithOrigins(allowedOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    });
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -67,6 +86,7 @@ else
 app.UseRouting();
 
 app.UseExceptionMiddleware();
+app.UseCors("ClientCors");
 app.UseAuthentication();
 
 app.UseAuthorization();
