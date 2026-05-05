@@ -25,6 +25,10 @@ Thumbs.db
 *.snupkg
 packages/
 artifacts/
+*.nuget.dgspec.json
+project.assets.json
+project.nuget.cache
+*.cache
 
 # Others
 *.ncrunch*
