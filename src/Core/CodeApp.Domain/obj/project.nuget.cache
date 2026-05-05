@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FsMICgENNCI=",
+  "dgSpecHash": "Lus/er0VWhg=",
   "success": true,
   "projectFilePath": "/Users/musacankecef/RiderProjects/CodeApp/src/Core/CodeApp.Domain/CodeApp.Domain.csproj",
   "expectedPackageFiles": [
@@ -21,9 +21,7 @@
     "/Users/musacankecef/.nuget/packages/microsoft.extensions.logging/8.0.1/microsoft.extensions.logging.8.0.1.nupkg.sha512",
     "/Users/musacankecef/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.2/microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
     "/Users/musacankecef/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
-    "/Users/musacankecef/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "/Users/musacankecef/.nuget/packages/microsoft.netcore.app.ref/8.0.19/microsoft.netcore.app.ref.8.0.19.nupkg.sha512",
-    "/Users/musacankecef/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.19/microsoft.aspnetcore.app.ref.8.0.19.nupkg.sha512"
+    "/Users/musacankecef/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

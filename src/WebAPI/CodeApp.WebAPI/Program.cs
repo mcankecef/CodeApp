@@ -1,8 +1,10 @@
 using CodeApp.Application;
 using CodeApp.Infrastructure;
 using CodeApp.Persistence;
+using CodeApp.Persistence.Contexts;
 using CodeApp.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -46,6 +48,12 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CodeAppDbContext>();
+    dbContext.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
