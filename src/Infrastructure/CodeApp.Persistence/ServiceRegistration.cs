@@ -23,7 +23,8 @@ namespace CodeApp.Persistence
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            services.AddDbContext<CodeAppDbContext>(options => options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"], options => options.EnableRetryOnFailure()));
+            services.AddDbContext<CodeAppDbContext>(options =>
+                options.UseNpgsql(configuration["ConnectionStrings:DefaultConnection"]));
             
             services.AddIdentity<AppUser, AppRole>(options =>
             {
