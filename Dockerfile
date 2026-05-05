@@ -10,8 +10,8 @@ COPY src/Infrastructure/CodeApp.Infrastructure/CodeApp.Infrastructure.csproj src
 COPY src/Infrastructure/CodeApp.Persistence/CodeApp.Persistence.csproj src/Infrastructure/CodeApp.Persistence/
 COPY src/WebAPI/CodeApp.WebAPI/CodeApp.WebAPI.csproj src/WebAPI/CodeApp.WebAPI/
 
-# Restore dependencies
-RUN dotnet restore
+# Restore only the deployable project (avoids test-project path issues in container)
+RUN dotnet restore src/WebAPI/CodeApp.WebAPI/CodeApp.WebAPI.csproj
 
 # Copy everything else
 COPY . .
