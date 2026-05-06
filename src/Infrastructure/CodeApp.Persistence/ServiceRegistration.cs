@@ -3,12 +3,14 @@ using CodeApp.Application.Abstractions.Services;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Repositories.AppUserStepQuestion;
 using CodeApp.Application.Repositories.StepQuestion;
+using CodeApp.Application.Repositories.Subscription;
 using CodeApp.Application.Repositories.UserStreak;
 using CodeApp.Domain.Entities.Identity;
 using CodeApp.Persistence.Contexts;
 using CodeApp.Persistence.Repositories;
 using CodeApp.Persistence.Repositories.AppUserStepQuestion;
 using CodeApp.Persistence.Repositories.StepQuestion;
+using CodeApp.Persistence.Repositories.Subscription;
 using CodeApp.Persistence.Repositories.UserStreak;
 using CodeApp.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
@@ -79,6 +81,8 @@ namespace CodeApp.Persistence
 
             services.AddTransient<IUserStreakReadRepository, UserStreakReadRepository>();
             services.AddTransient<IUserStreakWriteRepository, UserStreakWriteRepository>();
+            services.AddTransient<IUserSubscriptionReadRepository, UserSubscriptionReadRepository>();
+            services.AddTransient<IUserSubscriptionWriteRepository, UserSubscriptionWriteRepository>();
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISubscriptionService, SubscriptionService>();

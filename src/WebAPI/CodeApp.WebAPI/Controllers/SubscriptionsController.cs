@@ -1,6 +1,7 @@
-using CodeApp.Application.Abstractions.Services;
 using CodeApp.Application.Dtos.Subscription;
-using CodeApp.Application.Wrapper;
+using CodeApp.Application.Features.SubscriptionCommandQuery.Commands.HandleAppStoreWebhook;
+using CodeApp.Application.Features.SubscriptionCommandQuery.Commands.VerifySubscription;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,13 +12,11 @@ namespace CodeApp.WebAPI.Controllers;
 [ApiController]
 public class SubscriptionsController : ControllerBase
 {
-    private readonly ISubscriptionService _subscriptionService;
-    private readonly IConfiguration _configuration;
+    private readonly IMediator _mediator;
 
-    public SubscriptionsController(ISubscriptionService subscriptionService, IConfiguration configuration)
+    public SubscriptionsController(IMediator mediator)
     {
-        _subscriptionService = subscriptionService;
-        _configuration = configuration;
+        _mediator = mediator;
     }
 
     [HttpPost("verify")]
@@ -28,8 +27,16 @@ public class SubscriptionsController : ControllerBase
         if (string.IsNullOrWhiteSpace(userId))
             return Unauthorized();
 
-        var result = await _subscriptionService.VerifyAsync(userId, request, cancellationToken);
-        return Ok(new BaseResponse<SubscriptionStateDto>("Subscription verified.", true, result));
+        var response = await _mediator.Send(new VerifySubscriptionCommandRequest
+        {
+            UserId = userId,
+            Payload = request
+        }, cancellationToken);
+
+        if (!response.IsSuccess)
+            return BadRequest(response);
+
+        return Ok(response);
     }
 
     [HttpPost("webhook/appstore")]
@@ -39,11 +46,15 @@ public class SubscriptionsController : ControllerBase
         [FromHeader(Name = "X-Webhook-Secret")] string? webhookSecret,
         CancellationToken cancellationToken)
     {
-        var configuredSecret = _configuration["AppStore:WebhookSecret"];
-        if (!string.IsNullOrWhiteSpace(configuredSecret) && !string.Equals(webhookSecret, configuredSecret, StringComparison.Ordinal))
+        var response = await _mediator.Send(new HandleAppStoreWebhookCommandRequest
+        {
+            WebhookSecret = webhookSecret,
+            Payload = request
+        }, cancellationToken);
+
+        if (!response.IsSuccess)
             return Unauthorized();
 
-        await _subscriptionService.HandleAppStoreWebhookAsync(request, cancellationToken);
         return Ok(new { ok = true });
     }
 }

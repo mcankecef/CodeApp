@@ -6,6 +6,7 @@ using CodeApp.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json.Serialization;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,11 @@ var allowedOrigins = !string.IsNullOrWhiteSpace(configuredOrigins)
         ? new[] { "http://localhost:3000" }
         : Array.Empty<string>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddApplicationRegistration();
 builder.Services.AddInfrastructureRegistration();
 builder.Services.AddPersistenceRegistration(builder.Configuration);

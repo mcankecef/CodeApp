@@ -1,19 +1,23 @@
 using CodeApp.Application.Abstractions.Services;
 using CodeApp.Application.Dtos.Subscription;
+using CodeApp.Application.Repositories.Subscription;
 using CodeApp.Domain.Entities.Subscription;
 using CodeApp.Domain.Enums;
-using CodeApp.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeApp.Persistence.Services;
 
 public class SubscriptionService : ISubscriptionService
 {
-    private readonly CodeAppDbContext _dbContext;
+    private readonly IUserSubscriptionReadRepository _userSubscriptionReadRepository;
+    private readonly IUserSubscriptionWriteRepository _userSubscriptionWriteRepository;
 
-    public SubscriptionService(CodeAppDbContext dbContext)
+    public SubscriptionService(
+        IUserSubscriptionReadRepository userSubscriptionReadRepository,
+        IUserSubscriptionWriteRepository userSubscriptionWriteRepository)
     {
-        _dbContext = dbContext;
+        _userSubscriptionReadRepository = userSubscriptionReadRepository;
+        _userSubscriptionWriteRepository = userSubscriptionWriteRepository;
     }
 
     public async Task<SubscriptionStateDto> VerifyAsync(string userId, VerifySubscriptionRequestDto request, CancellationToken cancellationToken)
@@ -21,7 +25,7 @@ public class SubscriptionService : ISubscriptionService
         var tier = ResolveTier(request.ProductId);
         var status = ResolveStatus(request.ExpiresDateUtc, SubscriptionStatus.Active);
 
-        var subscription = await _dbContext.UserSubscriptions
+        var subscription = await _userSubscriptionReadRepository.Queryable()
             .FirstOrDefaultAsync(x => x.Provider == request.Provider && x.OriginalTransactionId == request.OriginalTransactionId, cancellationToken);
 
         if (subscription is null)
@@ -42,7 +46,8 @@ public class SubscriptionService : ISubscriptionService
                 RawPayload = request.ReceiptData
             };
 
-            await _dbContext.UserSubscriptions.AddAsync(subscription, cancellationToken);
+            await _userSubscriptionWriteRepository.CreateAsync(subscription);
+            return BuildStateDto(subscription);
         }
         else
         {
@@ -57,14 +62,14 @@ public class SubscriptionService : ISubscriptionService
             subscription.UpdatedDate = DateTime.UtcNow;
         }
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _userSubscriptionWriteRepository.SaveAsync();
 
         return BuildStateDto(subscription);
     }
 
     public async Task HandleAppStoreWebhookAsync(AppStoreWebhookRequestDto request, CancellationToken cancellationToken)
     {
-        var subscription = await _dbContext.UserSubscriptions
+        var subscription = await _userSubscriptionReadRepository.Queryable()
             .FirstOrDefaultAsync(
                 x => x.Provider == SubscriptionProvider.AppStore && x.OriginalTransactionId == request.OriginalTransactionId,
                 cancellationToken);
@@ -80,7 +85,7 @@ public class SubscriptionService : ISubscriptionService
         subscription.RawPayload = request.RawPayload ?? request.EventType ?? subscription.RawPayload;
         subscription.UpdatedDate = DateTime.UtcNow;
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _userSubscriptionWriteRepository.Update(subscription);
     }
 
     private static SubscriptionTier ResolveTier(string productId)
