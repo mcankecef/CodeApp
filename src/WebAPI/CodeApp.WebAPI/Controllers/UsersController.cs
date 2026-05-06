@@ -65,9 +65,20 @@ public class UsersController : ControllerBase
         => Ok(await _mediator.Send(new GetAllUserScoreQueryRequest(userId)));
 
     [HttpGet("get-by-id/{userId}")]
-    [Authorize(Roles = "Admin,Member")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetById(string userId)
         => Ok(await _mediator.Send(new GetUserByIdQueryRequest(userId)));
+
+    [HttpGet("me")]
+    [Authorize(Roles = "Admin,Member")]
+    public async Task<IActionResult> Me()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrWhiteSpace(userId))
+            return Unauthorized();
+
+        return Ok(await _mediator.Send(new GetUserByIdQueryRequest(userId)));
+    }
 
     [HttpPut]
     [Authorize(Roles = "Admin,Member")]

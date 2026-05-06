@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CodeApp.Domain.Entities.Subscription;
+using Microsoft.AspNetCore.Identity;
 
 namespace CodeApp.Domain.Entities.Identity
 {
@@ -14,5 +15,6 @@ namespace CodeApp.Domain.Entities.Identity
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? LastLoggedSession { get; set; }
         public bool IsActive { get; set; } = true;
+        public ICollection<UserSubscription> Subscriptions { get; set; } = new List<UserSubscription>();
     }
 }

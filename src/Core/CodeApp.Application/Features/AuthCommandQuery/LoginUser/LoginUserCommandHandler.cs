@@ -57,7 +57,6 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
 
             if (result.Succeeded)
             {
-                // Kullanıcının rollerini al
                 var userRoles = await _userManager.GetRolesAsync(user);
                 
                 var authClaims = new List<Claim>
@@ -68,7 +67,6 @@ namespace CodeApp.Application.Features.AuthCommandQuery.LoginUser
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
                 
-                // Rolleri claim olarak ekle
                 foreach (var role in userRoles)
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, role));

@@ -1,4 +1,5 @@
 ﻿using CodeApp.Application.Abstractions;
+using CodeApp.Application.Abstractions.Services;
 using CodeApp.Application.Repositories;
 using CodeApp.Application.Repositories.AppUserStepQuestion;
 using CodeApp.Application.Repositories.StepQuestion;
@@ -80,6 +81,7 @@ namespace CodeApp.Persistence
             services.AddTransient<IUserStreakWriteRepository, UserStreakWriteRepository>();
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ISubscriptionService, SubscriptionService>();
         }
     }
 }

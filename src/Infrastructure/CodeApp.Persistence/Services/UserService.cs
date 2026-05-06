@@ -4,6 +4,7 @@ using CodeApp.Application.Dtos;
 using CodeApp.Application.Dtos.User;
 using CodeApp.Application.Exceptions;
 using CodeApp.Domain.Entities.Identity;
+using CodeApp.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,6 +53,7 @@ namespace CodeApp.Persistence.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.Avatar)
+                .Include(u => u.Subscriptions)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user is null)
@@ -59,6 +61,20 @@ namespace CodeApp.Persistence.Services
 
             var response = _mapper.Map<GetUserByIdDto>(user);
             response.ImageUrl = user.Avatar?.ImageUrl;
+
+            var latestSubscription = user.Subscriptions
+                .OrderByDescending(x => x.ExpiresDateUtc)
+                .ThenByDescending(x => x.UpdatedDate)
+                .FirstOrDefault();
+            response.SubscriptionStatus = latestSubscription?.Status ?? SubscriptionStatus.None;
+            response.PremiumUntilUtc = latestSubscription?.ExpiresDateUtc;
+
+            var isActive = latestSubscription is not null
+                           && latestSubscription.Status is SubscriptionStatus.Active or SubscriptionStatus.InGracePeriod
+                           && (!latestSubscription.ExpiresDateUtc.HasValue || latestSubscription.ExpiresDateUtc.Value > DateTime.UtcNow);
+
+            response.IsPremium = isActive;
+            response.SubscriptionTier = isActive ? latestSubscription!.Tier : SubscriptionTier.Standard;
 
             return response;
         }

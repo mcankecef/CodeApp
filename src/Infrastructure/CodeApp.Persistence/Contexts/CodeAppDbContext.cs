@@ -1,5 +1,6 @@
 using CodeApp.Domain.Entities;
 using CodeApp.Domain.Entities.Identity;
+using CodeApp.Domain.Entities.Subscription;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -28,6 +29,7 @@ namespace CodeApp.Persistence.Contexts
         public DbSet<StepQuestion> StepQuestions { get; set; } = null!;
         public DbSet<AppUserStepQuestion> AppUserStepQuestions { get; set; } = null!;
         public DbSet<UserStreak> UserStreaks { get; set; } = null!;
+        public DbSet<UserSubscription> UserSubscriptions { get; set; } = null!;
 
         private static void ApplyPostgresLowercaseNaming(ModelBuilder modelBuilder)
         {
