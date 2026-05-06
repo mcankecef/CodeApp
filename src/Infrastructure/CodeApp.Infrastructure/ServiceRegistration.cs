@@ -15,6 +15,7 @@ namespace CodeApp.Infrastructure
             services.AddScoped<ITokenHandler,TokenHandler>();
             services.AddScoped<IStreakService, StreakService>();
             services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+            services.AddHttpClient<IEmailService, BrevoEmailService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }

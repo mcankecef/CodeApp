@@ -1,12 +1,15 @@
-﻿using CodeApp.Application.Features.AuthCommandQuery.LoginUser;
-using CodeApp.Application.Features.AuthCommandQuery.RefreshToken;
-using CodeApp.Application.Features.AuthCommandQuery.GoogleLogin;
-using CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser;
 using CodeApp.Application.Constants;
+using CodeApp.Application.Features.AuthCommandQuery.ForgotPassword;
+using CodeApp.Application.Features.AuthCommandQuery.GoogleLogin;
+using CodeApp.Application.Features.AuthCommandQuery.LoginUser;
+using CodeApp.Application.Features.AuthCommandQuery.RefreshToken;
+using CodeApp.Application.Features.AuthCommandQuery.ResetPassword;
+using CodeApp.Application.Features.UserCommandQuery.Commands.CreateUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeApp.WebAPI.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
@@ -30,16 +33,33 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginCommandRequest request)
     {
         var response = await _mediator.Send(request);
-        
+
         if (response.IsSuccess)
             return Ok(response);
-            
+
         return BadRequest(response);
     }
 
     [HttpPost("refresh-token-login")]
     public async Task<IActionResult> RefreshTokenLogin(RefreshTokenLoginCommandRequest refreshTokenLoginCommandRequest)
         => Ok(await _mediator.Send(refreshTokenLoginCommandRequest));
+
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordCommandRequest request)
+    {
+        request.Language ??= Request.Headers["Accept-Language"].ToString().Split(',').FirstOrDefault() ?? "en";
+        return Ok(await _mediator.Send(request));
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommandRequest request)
+    {
+        var response = await _mediator.Send(request);
+        if (!response.IsSuccess)
+            return BadRequest(response);
+
+        return Ok(response);
+    }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(CreateUserCommandRequest createUserCommandRequest)
