@@ -62,29 +62,6 @@ public class SubscriptionService : ISubscriptionService
         return BuildStateDto(subscription);
     }
 
-    public async Task<SubscriptionStateDto> GetMySubscriptionAsync(string userId, CancellationToken cancellationToken)
-    {
-        var active = await _dbContext.UserSubscriptions
-            .Where(x => x.UserId == userId)
-            .OrderByDescending(x => x.ExpiresDateUtc)
-            .ThenByDescending(x => x.UpdatedDate)
-            .FirstOrDefaultAsync(cancellationToken);
-
-        if (active is null)
-        {
-            return new SubscriptionStateDto
-            {
-                Tier = SubscriptionTier.Standard,
-                Status = SubscriptionStatus.None,
-                IsActive = false
-            };
-        }
-
-        active.Status = ResolveStatus(active.ExpiresDateUtc, active.Status);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return BuildStateDto(active);
-    }
-
     public async Task HandleAppStoreWebhookAsync(AppStoreWebhookRequestDto request, CancellationToken cancellationToken)
     {
         var subscription = await _dbContext.UserSubscriptions

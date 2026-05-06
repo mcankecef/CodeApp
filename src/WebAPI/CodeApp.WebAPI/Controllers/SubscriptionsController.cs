@@ -32,18 +32,6 @@ public class SubscriptionsController : ControllerBase
         return Ok(new BaseResponse<SubscriptionStateDto>("Subscription verified.", true, result));
     }
 
-    [HttpGet("me")]
-    [Authorize(Roles = "Admin,Member")]
-    public async Task<IActionResult> Me(CancellationToken cancellationToken)
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrWhiteSpace(userId))
-            return Unauthorized();
-
-        var result = await _subscriptionService.GetMySubscriptionAsync(userId, cancellationToken);
-        return Ok(new BaseResponse<SubscriptionStateDto>(result, true));
-    }
-
     [HttpPost("webhook/appstore")]
     [AllowAnonymous]
     public async Task<IActionResult> AppStoreWebhook(
