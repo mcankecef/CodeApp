@@ -51,7 +51,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("update-score")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Member")]
     public async Task<IActionResult> UpdateScore(UpdateScoreCommandRequest request)
     {
         await _mediator.Send(request);
