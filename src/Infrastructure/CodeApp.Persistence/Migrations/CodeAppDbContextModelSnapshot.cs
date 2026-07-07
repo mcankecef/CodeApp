@@ -3,8 +3,8 @@ using System;
 using CodeApp.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,719 +18,572 @@ namespace CodeApp.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Answer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AnswerName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("answername");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("QuestionId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("questionid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_answers");
+                    b.HasKey("Id");
 
-                    b.HasIndex("QuestionId")
-                        .HasDatabaseName("ix_answers_questionid");
+                    b.HasIndex("QuestionId");
 
-                    b.ToTable("answers");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.AppUserStepQuestion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("appuserid");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CurrentStepNumber")
-                        .HasColumnType("integer")
-                        .HasColumnName("currentstepnumber");
+                        .HasColumnType("int");
 
                     b.Property<Guid>("LanguageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("languageid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Score")
-                        .HasColumnType("integer")
-                        .HasColumnName("score");
+                        .HasColumnType("int");
 
                     b.Property<Guid>("StepQuestionId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("stepquestionid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_appuserstepquestions");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AppUserId")
-                        .HasDatabaseName("ix_appuserstepquestions_appuserid");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("StepQuestionId")
-                        .HasDatabaseName("ix_appuserstepquestions_stepquestionid");
+                    b.HasIndex("StepQuestionId");
 
-                    b.ToTable("appuserstepquestions");
+                    b.ToTable("AppUserStepQuestions");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Avatar", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("imageurl");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_avatars");
+                    b.HasKey("Id");
 
-                    b.ToTable("avatars");
+                    b.ToTable("Avatars");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Identity.AppRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text")
-                        .HasColumnName("id");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text")
-                        .HasColumnName("concurrencystamp");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("normalizedname");
+                        .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_aspnetroles");
+                    b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("rolenameindex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("aspnetroles", (string)null);
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Identity.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text")
-                        .HasColumnName("id");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("accessfailedcount");
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("AvatarId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("avatarid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text")
-                        .HasColumnName("concurrencystamp");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("email");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("emailconfirmed");
+                        .HasColumnType("bit");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("fullname");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("isactive");
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastLoggedSession")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lastloggedsession");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean")
-                        .HasColumnName("lockoutenabled");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lockoutend");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("normalizedemail");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("normalizedusername");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text")
-                        .HasColumnName("passwordhash");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text")
-                        .HasColumnName("phonenumber");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("phonenumberconfirmed");
+                        .HasColumnType("bit");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("text")
-                        .HasColumnName("refreshtoken");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RefreshTokenEndDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("refreshtokenenddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Score")
-                        .HasColumnType("integer")
-                        .HasColumnName("score");
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text")
-                        .HasColumnName("securitystamp");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean")
-                        .HasColumnName("twofactorenabled");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("username");
+                        .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_aspnetusers");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AvatarId")
-                        .HasDatabaseName("ix_aspnetusers_avatarid");
+                    b.HasIndex("AvatarId");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("emailindex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("usernameindex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("aspnetusers", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Language", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_languages");
+                    b.HasKey("Id");
 
-                    b.ToTable("languages");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Question", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CorrectAnswer")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("correctanswer");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("LanguageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("languageid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Level")
-                        .HasColumnType("integer")
-                        .HasColumnName("level");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Score")
-                        .HasColumnType("integer")
-                        .HasColumnName("score");
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("StepQuestionId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("stepquestionid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_questions");
+                    b.HasKey("Id");
 
-                    b.HasIndex("LanguageId")
-                        .HasDatabaseName("ix_questions_languageid");
+                    b.HasIndex("LanguageId");
 
-                    b.HasIndex("StepQuestionId")
-                        .HasDatabaseName("ix_questions_stepquestionid");
+                    b.HasIndex("StepQuestionId");
 
-                    b.ToTable("questions");
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.StepQuestion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("LanguageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("languageid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<int>("StepNumber")
-                        .HasColumnType("integer")
-                        .HasColumnName("stepnumber");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_stepquestions");
+                    b.HasKey("Id");
 
-                    b.ToTable("stepquestions");
+                    b.ToTable("StepQuestions");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Subject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("LanguageId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("languageid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("title");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("Id")
-                        .HasName("pk_subjects");
+                    b.HasKey("Id");
 
-                    b.HasIndex("LanguageId")
-                        .HasDatabaseName("ix_subjects_languageid");
+                    b.HasIndex("LanguageId");
 
-                    b.ToTable("subjects");
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Subscription.UserSubscription", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ExpiresDateUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("expiresdateutc");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastVerifiedUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lastverifiedutc");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OriginalTransactionId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("originaltransactionid");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("productid");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("Provider")
-                        .HasColumnType("integer")
-                        .HasColumnName("provider");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PurchaseDateUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("purchasedateutc");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("RawPayload")
-                        .HasColumnType("text")
-                        .HasColumnName("rawpayload");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
+                        .HasColumnType("int");
 
                     b.Property<int>("Tier")
-                        .HasColumnType("integer")
-                        .HasColumnName("tier");
+                        .HasColumnType("int");
 
                     b.Property<string>("TransactionId")
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
-                        .HasColumnName("transactionid");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("userid");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_usersubscriptions");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_usersubscriptions_userid");
+                    b.HasIndex("UserId");
 
                     b.HasIndex("Provider", "OriginalTransactionId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_usersubscriptions_provider_originaltransactionid");
+                        .IsUnique();
 
-                    b.ToTable("usersubscriptions");
+                    b.ToTable("UserSubscriptions");
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.UserStreak", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("CurrentStreak")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0)
-                        .HasColumnName("currentstreak");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime?>("LastActivityDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lastactivitydate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("LongestStreak")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0)
-                        .HasColumnName("longeststreak");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime?>("StreakStartDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("streakstartdate");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updateddate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(450)
-                        .HasColumnType("character varying(450)")
-                        .HasColumnName("userid");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_userstreaks");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_userstreaks_userid");
+                        .IsUnique();
 
-                    b.ToTable("userstreaks");
+                    b.ToTable("UserStreaks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text")
-                        .HasColumnName("claimtype");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text")
-                        .HasColumnName("claimvalue");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("roleid");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_aspnetroleclaims");
+                    b.HasKey("Id");
 
-                    b.HasIndex("RoleId")
-                        .HasDatabaseName("ix_aspnetroleclaims_roleid");
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("aspnetroleclaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text")
-                        .HasColumnName("claimtype");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text")
-                        .HasColumnName("claimvalue");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("userid");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id")
-                        .HasName("pk_aspnetuserclaims");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_aspnetuserclaims_userid");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("aspnetuserclaims", (string)null);
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text")
-                        .HasColumnName("loginprovider");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("text")
-                        .HasColumnName("providerkey");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text")
-                        .HasColumnName("providerdisplayname");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("userid");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("LoginProvider", "ProviderKey")
-                        .HasName("pk_aspnetuserlogins");
+                    b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_aspnetuserlogins_userid");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("aspnetuserlogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnName("userid");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("text")
-                        .HasColumnName("roleid");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserId", "RoleId")
-                        .HasName("pk_aspnetuserroles");
+                    b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("RoleId")
-                        .HasDatabaseName("ix_aspnetuserroles_roleid");
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("aspnetuserroles", (string)null);
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text")
-                        .HasColumnName("userid");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text")
-                        .HasColumnName("loginprovider");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text")
-                        .HasColumnName("value");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Name")
-                        .HasName("pk_aspnetusertokens");
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("aspnetusertokens", (string)null);
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Answer", b =>
@@ -739,8 +592,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_answers_questions_questionid");
+                        .IsRequired();
 
                     b.Navigation("Question");
                 });
@@ -751,15 +603,13 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_appuserstepquestions_aspnetusers_appuserid");
+                        .IsRequired();
 
                     b.HasOne("CodeApp.Domain.Entities.StepQuestion", "StepQuestion")
                         .WithMany()
                         .HasForeignKey("StepQuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_appuserstepquestions_stepquestions_stepquestionid");
+                        .IsRequired();
 
                     b.Navigation("AppUser");
 
@@ -770,8 +620,7 @@ namespace CodeApp.Persistence.Migrations
                 {
                     b.HasOne("CodeApp.Domain.Entities.Avatar", "Avatar")
                         .WithMany("AppUsers")
-                        .HasForeignKey("AvatarId")
-                        .HasConstraintName("fk_aspnetusers_avatars_avatarid");
+                        .HasForeignKey("AvatarId");
 
                     b.Navigation("Avatar");
                 });
@@ -782,13 +631,11 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_questions_languages_languageid");
+                        .IsRequired();
 
                     b.HasOne("CodeApp.Domain.Entities.StepQuestion", "StepQuestion")
                         .WithMany("Questions")
-                        .HasForeignKey("StepQuestionId")
-                        .HasConstraintName("fk_questions_stepquestions_stepquestionid");
+                        .HasForeignKey("StepQuestionId");
 
                     b.Navigation("Language");
 
@@ -801,8 +648,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany("Subjects")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_subjects_languages_languageid");
+                        .IsRequired();
 
                     b.Navigation("Language");
                 });
@@ -813,8 +659,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany("Subscriptions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_usersubscriptions_aspnetusers_userid");
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -825,8 +670,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithOne("Streak")
                         .HasForeignKey("CodeApp.Domain.Entities.UserStreak", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_userstreaks_aspnetusers_userid");
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -837,8 +681,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_aspnetroleclaims_aspnetroles_roleid");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -847,8 +690,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_aspnetuserclaims_aspnetusers_userid");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -857,8 +699,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_aspnetuserlogins_aspnetusers_userid");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -867,15 +708,13 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_aspnetuserroles_aspnetroles_roleid");
+                        .IsRequired();
 
                     b.HasOne("CodeApp.Domain.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_aspnetuserroles_aspnetusers_userid");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -884,8 +723,7 @@ namespace CodeApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_aspnetusertokens_aspnetusers_userid");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CodeApp.Domain.Entities.Avatar", b =>

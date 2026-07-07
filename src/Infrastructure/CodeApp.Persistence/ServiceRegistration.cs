@@ -26,8 +26,15 @@ namespace CodeApp.Persistence
         {
             var assembly = Assembly.GetExecutingAssembly();
 
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException("ConnectionStrings:DefaultConnection is not configured.");
+            }
+
             services.AddDbContext<CodeAppDbContext>(options =>
-                options.UseNpgsql(configuration["ConnectionStrings:DefaultConnection"]));
+                options.UseSqlServer(connectionString, sqlOptions =>
+                    sqlOptions.EnableRetryOnFailure()));
             
             services.AddIdentity<AppUser, AppRole>(options =>
             {

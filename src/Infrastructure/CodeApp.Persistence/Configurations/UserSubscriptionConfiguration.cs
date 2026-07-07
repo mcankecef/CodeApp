@@ -12,7 +12,7 @@ public class UserSubscriptionConfiguration : IEntityTypeConfiguration<UserSubscr
         builder.Property(x => x.ProductId).HasMaxLength(200).IsRequired();
         builder.Property(x => x.OriginalTransactionId).HasMaxLength(200).IsRequired();
         builder.Property(x => x.TransactionId).HasMaxLength(200);
-        builder.Property(x => x.RawPayload).HasColumnType("text");
+        builder.Property(x => x.RawPayload).HasColumnType("nvarchar(max)");
 
         builder.HasIndex(x => new { x.Provider, x.OriginalTransactionId }).IsUnique();
 

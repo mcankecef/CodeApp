@@ -1,43 +1,52 @@
-# Build results
-bin/
-obj/
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Pp]ublish/
+publish/
+artifacts/
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
 
-# Visual Studio files
+# .NET / NuGet
+project.assets.json
+project.nuget.cache
+*.nuget.dgspec.json
+*.nupkg
+*.snupkg
+packages/
+
+# Visual Studio
 .vs/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 
-# Rider files
+# Rider / ReSharper
 .idea/
 *.sln.iml
+_ReSharper*/
+*.DotSettings.user
 
 # OS generated files
 .DS_Store
 Thumbs.db
 
-# Logs
+# Logs and diagnostics
 *.log
-
-# NuGet packages
-*.nupkg
-*.snupkg
-packages/
-artifacts/
-*.nuget.dgspec.json
-project.assets.json
-project.nuget.cache
-*.cache
-
-# Others
-*.ncrunch*
-*.out
-*.ide.*	
-
-# Debug files
 *.pdb
 *.mdb
-Debug/
 
-publish/
+# Local config / secrets
+.env
+.env.*
+*.local.json
+
+# Misc
+*.ncrunch*
+*.out
+*.ide.*
